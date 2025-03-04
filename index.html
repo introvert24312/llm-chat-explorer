@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chat Export Viewer</title>
+  <meta name="description" content="AI Chat Export Viewer is a web application that allows you to view and analyze conversation exports from ChatGPT and Claude, offering an intuitive interface to manage chat history.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #10a37f;
+      --primary-light: #e6f7f2;
+      --text-color: #343541;
+      --text-light: #8e8ea0;
+      --sidebar-bg: #f7f7f8;
+      --content-bg: #ffffff;
+      --border-color: #e5e5e6;
+      --hover-color: #f0f0f0;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      --radius: 8px;
+      --highlight-bg: rgba(16, 163, 127, 0.2); /* Evidenziazione in light mode */
+    }
+    /* Dark mode override */
+    body.dark-mode {
+      --primary-color: #10a37f;
+      --primary-light: #0e8a69;
+      --text-color: #f0f0f0;
+      --text-light: #aaa;
+      --sidebar-bg: #1e1e1e;
+      --content-bg: #121212;
+      --border-color: #333;
+      --hover-color: #2a2a2a;
+      --shadow: none;
+      --highlight-bg: rgba(218, 15, 127, 0.8); /* Evidenziazione più intensa in dark mode. Era rgba(16, 163, 127, 0.4) */
+    }
+
+    body.dark-mode pre {
+        background-color: #2b2b2b !important;
+        color: #f8f8f2 !important;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-color);
+      background-color: var(--content-bg);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    
+    /* Upload wrapper per centrare verticalmente */
+    #upload-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+    
+    /* Upload area: più piccola con contorno e centrata */
+    #upload-area {
+      cursor: pointer;
+      border: 2px dashed #ccc;
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+    #upload-area.hover {
+      background-color: #f0f0f0;
+      border-color: var(--primary-color);
+    }
+    /* Titolo upload con icona in linea */
+    .upload-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      white-space: nowrap;
+    }
+    .upload-title i {
+      font-size: 1.8rem;
+    }
+    /* Testo generale dentro #upload-area */
+    #upload-area p {
+      font-size: 1.2rem;
+      color: var(--text-color);
+    }
+
+    /* Testo più piccolo per descrizione */
+    #upload-area p.small-text {
+      font-size: 0.8rem;
+    }
+
+    /* Stile di default per il testo delle istruzioni */
+    #upload-area p.upload-instruction {
+      font-size: 1rem;  /* Dimensione del font */
+      color: var(--text-color); /* Usa la variabile del tema */
+      margin-top: 10px;  /* Spazio sopra */
+      text-align: center; /* Testo centrato */
+      line-height: 1.5; /* Migliora la leggibilità */
+    }
+    
+    /* Progress bar */
+    #loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #eee;
+      z-index: 9999;
+      display: none;
+    }
+    #loading-bar {
+      height: 100%;
+      width: 0%;
+      background-color: var(--primary-color);
+      transition: width 0.2s;
+    }
+    
+    /* App container */
+    .app-container {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    .sidebar {
+      width: 320px;
+      background-color: var(--sidebar-bg);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      transition: width 0.3s ease;
+    }
+    
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .sidebar-header h1 {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem; /* 1.5rem */
+      color: var(--primary-color);
+      white-space: nowrap;
+    }
+    
+    #chat-counter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      padding: 5px 20px; /* 20px a sinistra e a destra */
+    }
+
+    .chat-info {
+      display: flex;
+      align-items: center;
+      gap: 5px; /* Spazio tra l'icona e il testo */
+    }
+
+    /* Icona gear per aprire le impostazioni */
+    #open-settings {
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    
+    .search-container {
+      position: relative;
+      margin: 15px 20px;
+    }
+
+    .search-options {
+      position: relative;
+      margin: 1px 20px;
+      font-size: 0.8rem;
+      padding: 0px 0px 10px 0px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+    
+    #search-bar {
+      width: 100%;
+      padding: 10px 40px 10px 40px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      font-size: 14px;
+      transition: all 0.2s ease;
+      background-color: var(--content-bg);
+    }
+    
+    #search-bar:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.2);
+    }
+    
+    .clear-search {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: var(--text-color);
+      cursor: pointer;
+      display: none;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      text-align: center;
+      border: none;
+      border-radius: 50%;
+      background-color: #d3d3d3;
+    }
+    .clear-search:hover {
+      background-color: #c0c0c0;
+      color: var(--primary-color);
+    }
+    
+    .chat-list {
+      list-style: none;
+      overflow-y: auto;
+      flex-grow: 1;
+      padding: 10px;
+    }
+    
+    .chat-list li {
+      padding: 12px 15px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      border-radius: var(--radius);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-left: 3px solid transparent;
+    }
+    
+    .chat-list li:hover {
+      background-color: var(--hover-color);
+      border-left-color: var(--primary-color);
+    }
+    
+    .chat-list li.active {
+      background-color: var(--primary-light);
+      border-left-color: var(--primary-color);
+      font-weight: 500;
+    }
+    
+    .chat-date {
+      color: var(--text-light);
+      font-size: 0.8rem;
+      margin-left: 5px;
+      opacity: 0.7;
+    }
+    
+    .content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      border-bottom: 1px solid var(--border-color);
+      background-color: var(--content-bg);
+      box-shadow: var(--shadow);
+    }
+    
+    .content-header h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .external-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px; /* Imposta uno spazio di 5px tra l'icona e il testo */
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 14px;
+      transition: opacity 0.2s;
+      padding: 6px 12px;
+      border-radius: var(--radius);
+      background-color: var(--primary-light);
+    }
+    /* In dark mode il testo del link diventa bianco */
+    body.dark-mode .external-link {
+      color: #ffffff;
+    }
+    /* In dark mode testo digitato nel campo di ricerca sarà della variabili come --text-color(#f0f0f0) invece che semplice bianco */
+    body.dark-mode #search-bar {
+      color: var(--text-color);
+    }
+    body.dark-mode .clear-search {
+      color: #333; /* Colore scuro per la X in modalità Dark */
+    }
+
+    .external-link:hover {
+      opacity: 0.8;
+    }
+    
+    .chat-messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 20px 30px;
+      background-color: var(--content-bg);
+    }
+    
+    .message {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    
+    .message-user {
+      background-color: var(--primary-light);
+      margin-left: 50px;
+    }
+    
+    .message-assistant {
+      background-color: var(--sidebar-bg);
+      margin-right: 50px;
+    }
+    
+    .message-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      margin-right: 10px;
+      font-size: 14px;
+    }
+    
+    .sender {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .message-content {
+      line-height: 1.6;
+    }
+    
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--text-light);
+      text-align: center;
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    
+    .empty-state p {
+      font-size: 1.1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .app-container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        height: 50vh;
+        min-height: 200px;
+      }
+      
+      .content {
+        height: 50vh;
+      }
+    }
+    
+    /* ---------- Modal delle impostazioni ---------- */
+    #settings-modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    #settings-modal .modal-content {
+      background-color: var(--content-bg);
+      padding: 20px;
+      border-radius: var(--radius);
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+    }
+    #settings-modal h2 {
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+    .close-button {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .setting-item span.label {
+      font-size: 1rem;
+      color: var(--text-color);
+    }
+    /* Switch generico */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .switch input { 
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: var(--primary-color);
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    /* Switch per dark mode con icone (corretto per migliore allineamento) */
+    .dark-slider:before {
+    content: "\f185"; /* sun */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    font-size: 18px;
+    color: #f39c12;
+    }
+
+    input:checked + .dark-slider:before {
+    content: "\f186"; /* moon */
+    left: auto;
+    right: 30px;
+    top: 3px;
+    color: #f1c40f;
+    }
+    
+    /* Classe per evidenziare il testo cercato; usa il colore definito da --highlight-bg, che cambia dinamicamente in base al tema (light/dark mode). */
+    .highlight {
+      background-color: var(--highlight-bg);
+      font-weight: bold;
+    }
+</style>
+</head>
+<body>
+  <!-- Progress bar -->
+  <div id="loading-overlay">
+    <div id="loading-bar"></div>
+  </div>
+
+  <!-- Upload wrapper per centrare l'upload area -->
+  <div id="upload-wrapper">
+    <div id="upload-area">
+      <h1 class="upload-title"><i class="fas fa-comments"></i> <span>AI Chat Export Viewer</span></h1>
+      <p class="small-text">
+        Upload the export of your chat data from ChatGPT or Claude to view and analyze conversations in an intuitive and user-friendly interface.
+      </p>
+      </br>
+      <p class="upload-instruction">Drag and drop the JSON file or click to select it</p>
+      <input type="file" id="json-file" accept=".json" style="display: none;">
+    </div>
+  </div>
+
+  <!-- App principale (nascosta fino al caricamento del JSON) -->
+  <div class="app-container" style="display: none;">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h1 style="cursor: pointer;" onclick="location.reload();" title="Click here to reload the page"><i class="fas fa-comments"></i> AI Chat Export Viewer</h1>
+      </div>
+      <div id="chat-counter">
+        <div class="chat-info">
+          <i class="fas fa-chart-bar"></i>
+          <span id="chat-counter-text">0 chats total</span>
+        </div>
+        <div id="service-label" style="margin-left: 10px; font-size: 0.9rem; color: var(--text-light);">
+          Source:
+        </div>
+        <div id="open-settings" title="Open settings">
+          <i class="fas fa-gear"></i>
+        </div>
+      </div>
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="search-bar" placeholder="Cerca conversazioni...">
+        <span id="clear-search" class="clear-search">&times;</span>
+      </div>
+      <div class="search-options">
+        <input type="checkbox" id="search-content-toggle">
+        <label for="search-content-toggle">Search within message content</label>
+      </div>
+      <ul id="chat-list" class="chat-list">
+        <!-- I titoli delle chat verranno inseriti qui -->
+      </ul>
+    </div>
+    <div class="content">
+      <div class="content-header">
+        <div style="display:inline-flex; align-items:center; gap:6px;">
+            <h2 id="chat-title" style="margin:0;">Select a chat</h2>
+            <button id="share-button" title="Condividi chat" style="background:none; border:none; cursor:pointer;">
+              <i class="fas fa-share"></i>
+            </button>
+        </div>
+        <a id="chat-link" href="#" target="_blank" class="external-link" style="display: none;">
+          <i class="fas fa-external-link-alt"></i> View on 
+        </a>
+      </div>
+      <div id="chat-content" class="chat-messages">
+        <div class="empty-state">
+          <i class="fas fa-hand-point-left"></i>
+          <p>Select a conversation from the list to view it</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal delle impostazioni -->
+  <div id="settings-modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Impostazioni</h2>
+      <div class="setting-item">
+        <span class="label" id="dark-mode-label">Dark mode:</span>
+        <label class="switch">
+          <input type="checkbox" id="modal-dark-toggle">
+          <span class="slider dark-slider"></span>
+        </label>
+      </div>
+      <div class="setting-item">
+        <span class="label" id="chat-position-label">Chat position:</span>
+        <label class="switch">
+          <input type="checkbox" id="modal-chat-toggle" checked>
+          <span class="slider"></span>
+        </label>
+        <span id="chat-position-text">At end</span>
+      </div>
+      <div class="setting-item">
+        <span class="label" id="language-label">Language:</span>
+        <select id="language-select">
+          <option value="en">English</option>
+          <option value="it">Italiano</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="pl">Polski</option>
+          <option value="zh">中文</option>
+          <option value="ko">한국어</option>
+          <option value="ja">日本語</option>      
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Traduzioni per le varie lingue */
+    const translations = {
+      it: {
+        uploadTitle: "AI Chat Export Viewer",
+        reloadTooltip: "Clicca qui per ricaricare la pagina",
+        uploadInstruction: "Trascina qui il file JSON (conversations.json) oppure clicca per selezionarlo",
+        metaDescription: "AI Chat Export Viewer è un'applicazione web che consente di visualizzare e analizzare le esportazioni delle conversazioni da ChatGPT e Claude, offrendo un'interfaccia intuitiva per gestire la cronologia chat.",
+        uploadDescription: "Carica l'esportazione dei tuoi dati di chat da ChatGPT o Claude per visualizzare e analizzare le conversazioni in un'interfaccia intuitiva e user-friendly.",
+        sourceLabel: "Fonte:",
+        openSettingsTooltip: "Apri impostazioni",
+        searchPlaceholder: "Cerca conversazioni...",
+        selectChat: "Seleziona una chat",
+        emptyState: "Seleziona una conversazione dalla lista per visualizzarla",
+        noMessage: "Nessun messaggio disponibile per questa chat",
+        viewOnChatGPT: "Visualizza su ChatGPT",
+        viewOnClaude: "Visualizza su Claude",
+        settingsTitle: "Impostazioni",
+        darkModeLabel: "Modalità dark:",
+        chatPositionLabel: "Posizione chat:",
+        languageLabel: "Lingua:",
+        chatPositionEnd: "Alla fine",
+        chatPositionStart: "All'inizio",
+        chatCountSuffix: "chat totali",
+        searchContentLabel: "Ricerca nel contenuto dei messaggi",
+        shareButtonTitle: "Condividi chat",
+        copyNotification: "Link della chat copiato negli appunti!",
+        jsonParseError: "Errore nel parsing del file JSON: ",
+        fileReadError: "Errore nella lettura del file",
+        copyError: "Errore nel copiare le informazioni",
+        userSender: "Tu",     //Se il messaggio è attivo solo per questa stringa non lo aggiorna in tempo reale ma cambiando messaggio (per evitare di caricare in memoria tutto il messaggio nel caso sia troppo lungo)
+        visibleSeparator: "di"
+      },
+      en: {
+        uploadTitle: "AI Chat Export Viewer",
+        reloadTooltip: "Click here to reload the page",
+        uploadInstruction: "Drag and drop the JSON file (conversations.json) or click to select it",
+        metaDescription: "AI Chat Export Viewer is a web application that allows you to view and analyze conversation exports from ChatGPT and Claude, offering an intuitive interface to manage chat history.",
+        uploadDescription: "Upload the export of your chat data from ChatGPT or Claude to view and analyze conversations in an intuitive and user-friendly interface.",
+        sourceLabel: "Source:",
+        openSettingsTooltip: "Open settings",
+        searchPlaceholder: "Search conversations...",
+        selectChat: "Select a chat",
+        emptyState: "Select a conversation from the list to view it",
+        noMessage: "No messages available for this chat",
+        viewOnChatGPT: "View on ChatGPT",
+        viewOnClaude: "View su Claude",
+        settingsTitle: "Settings",
+        darkModeLabel: "Dark mode:",
+        chatPositionLabel: "Chat position:",
+        languageLabel: "Language:",
+        chatPositionEnd: "At end",
+        chatPositionStart: "At start",
+        chatCountSuffix: "chats total",
+        searchContentLabel: "Search within message content",
+        shareButtonTitle: "Share chat",
+        copyNotification: "Chat link copied to clipboard!",
+        jsonParseError: "JSON file parsing error: ",
+        fileReadError: "File reading error",
+        copyError: "Error copying information",
+        userSender: "You",
+        visibleSeparator: "of"
+      },
+      es: {
+        uploadTitle: "AI Chat Export Viewer",
+        reloadTooltip: "Haz clic aquí para recargar la página",
+        uploadInstruction: "Arrastra el archivo JSON (conversations.json) o haz clic para seleccionarlo",
+        metaDescription: "AI Chat Export Viewer es una aplicación web que te permite visualizar y analizar las exportaciones de conversaciones de ChatGPT y Claude, ofreciendo una interfaz intuitiva para gestionar el historial de chats.",
+        uploadDescription: "Carga la exportación de tus datos de chat de ChatGPT o Claude para visualizar y analizar las conversaciones en una interfaz intuitiva y fácil de usar.",
+        sourceLabel: "Fuente:",
+        openSettingsTooltip: "Abrir ajustes",
+        searchPlaceholder: "Buscar conversaciones...",
+        selectChat: "Selecciona un chat",
+        emptyState: "Selecciona una conversación de la lista para visualizarla",
+        noMessage: "No hay mensajes disponibles para este chat",
+        viewOnChatGPT: "Ver en ChatGPT",
+        viewOnClaude: "Ver en Claude",
+        settingsTitle: "Configuraciones",
+        darkModeLabel: "Modo oscuro:",
+        chatPositionLabel: "Posición del chat:",
+        languageLabel: "Idioma:",
+        chatPositionEnd: "Al final",
+        chatPositionStart: "Al principio",
+        chatCountSuffix: "chats totales",
+        searchContentLabel: "Buscar en el contenido de los mensajes",
+        shareButtonTitle: "Compartir chat",
+        copyNotification: "¡Enlace del chat copiado al portapapeles!",
+        jsonParseError: "Error al analizar el archivo JSON: ",
+        fileReadError: "Error al leer el archivo",
+        copyError: "Error al copiar la información",
+        userSender: "Tú",
+        visibleSeparator: "de"
+      },
+      fr: {
+        uploadTitle: "AI Chat Export Viewer",
+        reloadTooltip: "Cliquez ici pour recharger la page",
+        uploadInstruction: "Faites glisser le fichier JSON (conversations.json) ou cliquez pour le sélectionner",
+        metaDescription: "AI Chat Export Viewer est une application web qui vous permet de visualiser et d'analyser les exportations de conversations de ChatGPT et Claude, offrant une interface intuitive pour gérer l'historique des chats.",
+        uploadDescription: "Téléchargez l'exportation de vos données de chat de ChatGPT ou Claude pour visualiser et analyser les conversations dans une interface intuitive et conviviale.",
+        sourceLabel: "Source:",
+        openSettingsTooltip: "Ouvrir les paramètres",
+        searchPlaceholder: "Rechercher des conversations...",
+        selectChat: "Sélectionnez une conversation",
+        emptyState: "Sélectionnez une conversation dans la liste pour l'afficher",
+        noMessage: "Aucun message disponible pour cette conversation",
+        viewOnChatGPT: "Voir sur ChatGPT",
+        viewOnClaude: "Voir sur Claude",
+        settingsTitle: "Paramètres",
+        darkModeLabel: "Mode sombre:",
+        chatPositionLabel: "Position du chat:",
+        languageLabel: "Langue:",
+        chatPositionEnd: "À la fin",
+        chatPositionStart: "Au début",
+        chatCountSuffix: "chats totaux",
+        searchContentLabel: "Rechercher dans le contenu des messages",
+        shareButtonTitle: "Partager le chat",
+        copyNotification: "Lien du chat copié dans le presse-papiers !",
+        jsonParseError: "Erreur lors de l'analyse du fichier JSON : ",
+        fileReadError: "Erreur lors de la lecture du fichier",
+        copyError: "Erreur lors de la copie des informations",
+        userSender: "Vous",
+        visibleSeparator: "de"
+      },
+      de: {
+        uploadTitle: "AI Chat Export Viewer",
+        reloadTooltip: "Klicken Sie hier, um die Seite neu zu laden",
+        uploadInstruction: "Ziehen Sie die JSON-Datei (conversations.json) per Drag & Drop oder klicken Sie, um sie auszuwählen",
+        metaDescription: "AI Chat Export Viewer ist eine Webanwendung, die es Ihnen ermöglicht, Gesprächsexporte von ChatGPT und Claude anzusehen und zu analysieren, und bietet eine intuitive Benutzeroberfläche zur Verwaltung des Chatverlaufs.",
+        uploadDescription: "Laden Sie den Export Ihrer Chat-Daten von ChatGPT oder Claude hoch, um die Gespräche in einer intuitiven und benutzerfreundlichen Oberfläche anzuzeigen und zu analysieren.",
+        sourceLabel: "Quelle:",
+        openSettingsTooltip: "Einstellungen öffnen",
+        searchPlaceholder: "Suche Unterhaltungen...",
+        selectChat: "Wähle einen Chat",
+        emptyState: "Wählen Sie einen Chat aus der Liste, um ihn anzuzeigen",
+        noMessage: "Keine Nachrichten für diesen Chat verfügbar",
+        viewOnChatGPT: "Auf ChatGPT anzeigen",
+        viewOnClaude: "Auf Claude anzeigen",
+        settingsTitle: "Einstellungen",
+        darkModeLabel: "Dunkelmodus:",
+        chatPositionLabel: "Chatposition:",
+        languageLabel: "Sprache:",
+        chatPositionEnd: "Am Ende",
+        chatPositionStart: "Am Anfang",
+        chatCountSuffix: "Chats insgesamt",
+        searchContentLabel: "Im Nachrichteninhalt suchen",
+        shareButtonTitle: "Chat teilen",
+        copyNotification: "Chat-Link in die Zwischenablage kopiert!",
+        jsonParseError: "Fehler beim Parsen der JSON-Datei: ",
+        fileReadError: "Fehler beim Lesen der Datei",
+        copyError: "Fehler beim Kopieren der Informationen",
+        userSender: "Du",
+        visibleSeparator: "von"
+      },
+      pl: {
+        uploadTitle: "AI Chat Export Viewer",
+        reloadTooltip: "Kliknij tutaj, aby przeładować stronę",
+        uploadInstruction: "Przeciągnij plik JSON (conversations.json) tutaj lub kliknij, aby go wybrać",
+        metaDescription: "AI Chat Export Viewer to aplikacja internetowa, która umożliwia przeglądanie i analizowanie eksportów konwersacji z ChatGPT i Claude, oferując intuicyjny interfejs do zarządzania historią czatu.",
+        uploadDescription: "Prześlij eksport swoich danych czatu z ChatGPT lub Claude, aby przeglądać i analizować konwersacje w intuicyjnym i przyjaznym dla użytkownika interfejsie.",
+        sourceLabel: "Źródło:",
+        openSettingsTooltip: "Otwórz ustawienia",
+        searchPlaceholder: "Szukaj konwersacji...",
+        selectChat: "Wybierz czat",
+        emptyState: "Wybierz konwersację z listy, aby ją wyświetlić",
+        noMessage: "Brak wiadomości dostępnych dla tego czatu",
+        viewOnChatGPT: "Wyświetl na ChatGPT",
+        viewOnClaude: "Wyświetl na Claude",
+        settingsTitle: "Ustawienia",
+        darkModeLabel: "Tryb ciemny:",
+        chatPositionLabel: "Pozycja czatu:",
+        languageLabel: "Język:",
+        chatPositionEnd: "Na końcu",
+        chatPositionStart: "Na początku",
+        chatCountSuffix: "czatów łącznie",
+        searchContentLabel: "Szukaj w treści wiadomości",
+        shareButtonTitle: "Udostępnij czat",
+        copyNotification: "Link do czatu skopiowany do schowka!",
+        jsonParseError: "Błąd podczas analizowania pliku JSON: ",
+        fileReadError: "Błąd podczas odczytu pliku",
+        copyError: "Błąd podczas kopiowania informacji",
+        userSender: "Ty",
+        visibleSeparator: "z"
+      },
+      zh: {
+        uploadTitle: "AI Chat Export Viewer",
+        reloadTooltip: "点击此处重新加载页面",
+        uploadInstruction: "将 JSON 文件 (conversations.json) 拖放到此处或单击以选择",
+        metaDescription: "AI Chat Export Viewer 是一个网页应用程序，可让您查看和分析来自 ChatGPT 和 Claude 的对话导出，并提供直观的界面来管理聊天历史。",
+        uploadDescription: "上传您的 ChatGPT 或 Claude 聊天数据导出文件，以直观、用户友好的界面查看和分析对话。",
+        sourceLabel: "来源:",
+        openSettingsTooltip: "打开设置",
+        searchPlaceholder: "搜索对话...",
+        selectChat: "选择一个聊天",
+        emptyState: "从列表中选择对话以查看",
+        noMessage: "该聊天没有可用消息",
+        viewOnChatGPT: "在 ChatGPT 上查看",
+        viewOnClaude: "在 Claude 上查看",
+        settingsTitle: "设置",
+        darkModeLabel: "暗黑模式:",
+        chatPositionLabel: "聊天位置:",
+        languageLabel: "语言:",
+        chatPositionEnd: "在末尾",
+        chatPositionStart: "在开头",
+        chatCountSuffix: "总聊天数",
+        searchContentLabel: "搜索消息内容",
+        shareButtonTitle: "分享聊天",
+        copyNotification: "聊天链接已复制到剪贴板！",
+        jsonParseError: "JSON 文件解析错误: ",
+        fileReadError: "文件读取错误",
+        copyError: "复制信息时出错",
+        userSender: "你",
+        visibleSeparator: "的"
+      },
+      ko: {
+        uploadTitle: "AI Chat Export Viewer",
+        reloadTooltip: "페이지를 새로고침하려면 여기를 클릭하세요",
+        uploadInstruction: "JSON 파일 (conversations.json)을 여기에 드래그 앤 드롭하거나 클릭하여 선택하세요",
+        metaDescription: "AI Chat Export Viewer는 ChatGPT와 Claude의 대화 내보내기를 확인하고 분석할 수 있는 웹 애플리케이션으로, 채팅 기록을 관리하기 위한 직관적인 인터페이스를 제공합니다.",
+        uploadDescription: "ChatGPT 또는 Claude의 채팅 데이터 내보내기를 업로드하여 직관적이고 사용자 친화적인 인터페이스에서 대화를 확인하고 분석하세요.",
+        sourceLabel: "출처:",
+        openSettingsTooltip: "설정 열기",
+        searchPlaceholder: "대화를 검색하세요...",
+        selectChat: "채팅 선택",
+        emptyState: "목록에서 대화를 선택하여 표시하세요",
+        noMessage: "이 채팅에 사용 가능한 메시지가 없습니다",
+        viewOnChatGPT: "ChatGPT에서 보기",
+        viewOnClaude: "Claude에서 보기",
+        settingsTitle: "설정",
+        darkModeLabel: "다크 모드:",
+        chatPositionLabel: "채팅 위치:",
+        languageLabel: "언어:",
+        chatPositionEnd: "끝에",
+        chatPositionStart: "처음에",
+        chatCountSuffix: "총 채팅 수",
+        searchContentLabel: "메시지 내용 검색",
+        shareButtonTitle: "채팅 공유",
+        copyNotification: "채팅 링크가 클립보드에 복사되었습니다!",
+        jsonParseError: "JSON 파일 구문 분석 오류: ",
+        fileReadError: "파일 읽기 오류",
+        copyError: "정보 복사 오류",
+        userSender: "너",
+        visibleSeparator: "의"
+      },
+      ja: {
+        uploadTitle: "AI Chat Export Viewer",
+        reloadTooltip: "ページを再読み込みするにはここをクリックしてください",
+        uploadInstruction: "JSONファイル (conversations.json) をここにドラッグ＆ドロップするか、クリックして選択してください",
+        metaDescription: "AI Chat Export Viewer は、ChatGPT と Claude からの会話のエクスポートを表示および解析できるウェブアプリケーションで、チャット履歴を管理するための直感的なインターフェースを提供します。",
+        uploadDescription: "ChatGPT または Claude のチャットデータのエクスポートをアップロードして、直感的で使いやすいインターフェースで会話を表示および解析してください。",
+        sourceLabel: "出典:",
+        openSettingsTooltip: "設定を開く",
+        searchPlaceholder: "会話を検索...",
+        selectChat: "チャットを選択",
+        emptyState: "リストから会話を選択して表示",
+        noMessage: "このチャットには利用可能なメッセージがありません",
+        viewOnChatGPT: "ChatGPTで表示",
+        viewOnClaude: "Claudeで表示",
+        settingsTitle: "設定",
+        darkModeLabel: "ダークモード:",
+        chatPositionLabel: "チャット位置:",
+        languageLabel: "言語:",
+        chatPositionEnd: "最後に",
+        chatPositionStart: "最初に",
+        chatCountSuffix: "合計チャット数",
+        searchContentLabel: "メッセージ内容を検索",
+        shareButtonTitle: "チャットを共有",
+        copyNotification: "チャットリンクがクリップボードにコピーされました！",
+        jsonParseError: "JSONファイルの解析エラー: ",
+        fileReadError: "ファイル読み取りエラー",
+        copyError: "情報のコピーエラー",
+        userSender: "あなた",
+        visibleSeparator: "の"
+      }
+    };
+    // Aggiorna i testi in base alla lingua scelta
+    function updateTranslations() {
+      const lang = localStorage.getItem('language') || 'en';
+      // Aggiorna il meta tag description
+      document.querySelector("meta[name='description']").setAttribute("content", translations[lang].metaDescription);
+      // Aggiorna il tooltip del titolo cliccabile nella sidebar-header
+      document.querySelector(".sidebar-header h1").setAttribute("title", translations[lang].reloadTooltip);
+      // Aggiorna il tooltip dell'icona delle impostazioni
+      document.getElementById("open-settings").setAttribute("title", translations[lang].openSettingsTooltip);
+      // Upload area
+      document.querySelector("#upload-area .upload-title span").textContent = translations[lang].uploadTitle;
+      document.querySelector("#upload-area p.small-text").textContent = translations[lang].uploadDescription;
+      document.querySelector("#upload-area p.upload-instruction").textContent = translations[lang].uploadInstruction;
+      // Search placeholder
+      document.getElementById("search-bar").placeholder = translations[lang].searchPlaceholder;
+      // Content header: se non è stato ancora selezionato nulla, mostra il testo predefinito
+      if(document.getElementById("chat-title").textContent.trim() === "Seleziona una chat" ||
+         document.getElementById("chat-title").textContent.trim() === "Select a chat" ||
+         document.getElementById("chat-title").textContent.trim() === "Selecciona un chat" ||
+         document.getElementById("chat-title").textContent.trim() === "Sélectionnez une conversation" ||
+         document.getElementById("chat-title").textContent.trim() === "Wähle einen Chat" ||
+         document.getElementById("chat-title").textContent.trim() === "Wybierz czat" ||
+         document.getElementById("chat-title").textContent.trim() === "选择一个聊天" ||
+         document.getElementById("chat-title").textContent.trim() === "채팅 선택" ||
+         document.getElementById("chat-title").textContent.trim() === "チャットを選択") {
+      } {
+        document.getElementById("chat-title").textContent = translations[lang].selectChat;
+      }
+      // External link text
+      document.querySelector("#chat-link").innerHTML = '<i class="fas fa-external-link-alt"></i> ' + translations[lang].viewOnChatGPT;
+      // Empty state
+      let emptyStateP = document.querySelector(".empty-state p");
+      if(emptyStateP) {
+        emptyStateP.textContent = translations[lang].emptyState;
+      }
+      // Aggiorna l'etichetta del servizio se esiste e se il servizio è già stato determinato
+      if (document.getElementById("service-label") && window.currentService) {
+        document.getElementById("service-label").textContent = translations[lang].sourceLabel + " " + window.currentService;
+      }
+      // Settings modal
+      document.querySelector("#settings-modal h2").textContent = translations[lang].settingsTitle;
+      document.getElementById("dark-mode-label").textContent = translations[lang].darkModeLabel;
+      document.getElementById("chat-position-label").textContent = translations[lang].chatPositionLabel;
+      document.getElementById("language-label").textContent = translations[lang].languageLabel;
+      // Aggiorna il testo della posizione chat nel modal in base allo stato del toggle
+      const chatPosToggle = document.getElementById("modal-chat-toggle");
+      if(chatPosToggle.checked) {
+        document.getElementById("chat-position-text").textContent = translations[lang].chatPositionEnd;
+      } else {
+        document.getElementById("chat-position-text").textContent = translations[lang].chatPositionStart;
+      }
+      document.querySelector(".search-options label[for='search-content-toggle']").textContent = translations[lang].searchContentLabel;
+      document.getElementById("share-button").title = translations[lang].shareButtonTitle;
+
+      // Aggiorna il contatore in base al contenuto del campo di ricerca
+      const searchBar = document.getElementById("search-bar");
+      const currentSearch = searchBar.value.toLowerCase().trim();
+      if (currentSearch !== "") {
+        // Se c'è un filtro attivo, conta le chat visibili
+        let visibleCount = 0;
+        Array.from(document.getElementById("chat-list").children).forEach(li => {
+          if (li.style.display !== "none") {
+            visibleCount++;
+          }
+        });
+        document.getElementById("chat-counter-text").textContent =
+          visibleCount + " " + translations[lang].visibleSeparator + " " + window.totalChats + " " + translations[lang].chatCountSuffix;
+      } else {
+        document.getElementById("chat-counter-text").textContent = window.totalChats + " " + translations[lang].chatCountSuffix;
+      }
+
+    }
+
+    // Funzione per formattare la data in formato dd/mm/yyyy
+    function formatDate(date) {
+      const d = new Date(date);
+      const day = ('0' + d.getDate()).slice(-2);
+      const month = ('0' + (d.getMonth() + 1)).slice(-2);
+      const year = d.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+
+    function processData(data) {
+      const lang = localStorage.getItem('language') || 'en';
+      let conversations = [];
+      if (Array.isArray(data)) {
+        conversations = data;
+      } else {
+        conversations = data.conversations || [];
+      }
+
+      // Se il file è in formato Claude (ovvero, se il primo oggetto contiene la proprietà chat_messages), l'ordine è dal più vecchio al più nuovo.
+      // Invertiamo l'array per avere il medesimo ordine (dal più recente al più vecchio) di ChatGPT in modo da normalizzare la visualizzazione del flusso di chat.
+      if (conversations.length > 0 && conversations[0].chat_messages) {
+        conversations.reverse();
+      }
+
+      // Salva il totale globalmente
+      window.totalChats = conversations.length;
+
+      let chatListHTML = '';
+      const chatData = {};
+
+      conversations.forEach((chat, index) => {
+        // Usa 'title' (ChatGPT) o 'name' (Claude) per il titolo
+        let title = chat.title || chat.name || `Chat ${index + 1}`;
+        let messages = [];
+        let service = "ChatGPT"; // default
+        let uuid = null;
+        let conversation_id = null;
+
+        // Se il formato è Claude (campo "chat_messages")
+        if (chat.chat_messages) {
+          service = "Claude";
+          uuid = chat.uuid; // da Claude
+          chat.chat_messages.forEach((msg) => {
+            // Mappa il ruolo in base al campo sender
+            let role = "";
+            if (msg.sender) {
+              role = msg.sender === "human" ? "user" : "assistant";
+            } else {
+              role = "assistant"; // default
+            }
+            if (msg.text && msg.text.trim() !== '') {
+              messages.push({ text: msg.text, role: role });
+            } else if (msg.content) {
+              msg.content.forEach((part) => {
+                if (part.text && part.text.trim() !== '') {
+                  messages.push({ text: part.text, role: role });
+                }
+              });
+            }
+          });
+        }
+        // Se il formato è ChatGPT con mapping
+        else if (chat.mapping) {
+          if (chat.conversation_id) {
+            conversation_id = chat.conversation_id;
+          }
+          for (let key in chat.mapping) {
+            const messageObj = chat.mapping[key];
+            if (messageObj.message && messageObj.message.content) {
+              // Estrai il ruolo dal campo author.role (default a "assistant" se non presente)
+              const role = messageObj.message.author && messageObj.message.author.role ? messageObj.message.author.role : "assistant";
+              const parts = messageObj.message.content.parts || [];
+              parts.forEach((part) => {
+                if (typeof part === 'string' && part.trim() !== '') {
+                  messages.push({ text: part, role: role });
+                }
+              });
+            }
+          }
+        }
+
+        // Gestione della data di creazione (Claude usa "created_at")
+        let createdTime = null;
+        if (chat.created_at) {
+          createdTime = new Date(chat.created_at);
+        } else if (chat.create_time) {
+          createdTime = typeof chat.create_time === 'number' ? new Date(chat.create_time * 1000) : new Date(chat.create_time);
+        }
+
+        let displayTitle = title;
+        if (createdTime) {
+          displayTitle += ` <span class='chat-date'>${formatDate(createdTime)}</span>`;
+        }
+        chatListHTML += `<li data-id="${index}" title="${title}">${displayTitle}</li>`;
+        chatData[index] = {
+          title: title,
+          messages: messages,
+          created_time: createdTime ? formatDate(createdTime) : "",
+          service: service,
+          uuid: uuid,
+          conversation_id: conversation_id
+        };
+      });
+
+      document.getElementById("chat-list").innerHTML = chatListHTML;
+      Array.from(document.getElementById("chat-list").children).forEach(li => {
+        li.setAttribute("data-original", li.innerHTML);
+      });
+      if (conversations.length > 0) {
+        // Se il primo oggetto contiene "chat_messages", il file è di Claude, altrimenti ChatGPT
+        let serviceType = (conversations[0].chat_messages) ? "Claude" : "ChatGPT";
+        window.currentService = serviceType; // Salva il servizio globalmente
+        document.getElementById("service-label").textContent = translations[lang].sourceLabel + " " + serviceType;
+      }
+      const searchBar = document.getElementById("search-bar");
+      const clearSearch = document.getElementById("clear-search");
+
+      searchBar.addEventListener("input", () => {
+        const searchTerm = searchBar.value.toLowerCase().trim();
+        clearSearch.style.display = searchTerm !== "" ? "block" : "none";
+        const words = searchTerm.split(/\s+/).filter(word => word.length > 0);
+        const searchInContent = document.getElementById("search-content-toggle").checked;
+        let visibleCount = 0; // variabile per contare le chat visibili
+
+        Array.from(document.getElementById("chat-list").children).forEach(li => {
+          const chatId = li.getAttribute("data-id");
+          const chat = chatData[chatId];
+          const titleText = chat.title.toLowerCase();
+          // Controllo sul titolo
+          const titleMatches = words.every(word => titleText.includes(word));
+          let contentMatches = false;
+          if (searchInContent && chat.messages) {
+            contentMatches = chat.messages.some(msgObj => {
+              return words.every(word => msgObj.text.toLowerCase().includes(word));
+            });
+          }
+          const matches = titleMatches || contentMatches;
+          li.style.display = matches ? "" : "none";
+          if (matches) {
+            visibleCount++;
+            // Evidenziazione nel titolo (se applicabile)
+            if (titleMatches && words.length > 0) {
+              let newHTML = li.getAttribute("data-original");
+              words.forEach(word => {
+                const regex = new RegExp(`(${word.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')})`, 'gi');
+                newHTML = newHTML.replace(regex, `<span class="highlight">$1</span>`);
+              });
+              li.innerHTML = newHTML;
+            } else {
+              li.innerHTML = li.getAttribute("data-original");
+            }
+          }
+        });
+        
+        // Aggiorna il contatore: "visibili di totali chat totali"
+        const lang = localStorage.getItem('language') || 'en';
+        if (visibleCount === window.totalChats) {
+          document.getElementById("chat-counter-text").textContent = window.totalChats + " " + translations[lang].chatCountSuffix;
+        } else {
+          document.getElementById("chat-counter-text").textContent = visibleCount + " di " + window.totalChats + " " + translations[lang].chatCountSuffix;
+        }
+        
+        // Se una chat è attiva, aggiorna anche il contenuto dei messaggi
+        const activeLi = document.querySelector(".chat-list li.active");
+        if (activeLi) {
+          const activeChatId = activeLi.getAttribute("data-id");
+          renderMessages(chatData[activeChatId].messages);
+        }
+      });
+      // Aggiungo questo listener, per aggiornare la ricerca al cambio della checkbox:
+      document.getElementById("search-content-toggle").addEventListener("change", () => {
+        // Simula l'evento "input" sul campo di ricerca per aggiornare i risultati
+        searchBar.dispatchEvent(new Event("input"));
+      });
+      clearSearch.addEventListener("click", () => {
+        searchBar.value = "";
+        clearSearch.style.display = "none";
+        Array.from(document.getElementById("chat-list").children).forEach(li => {
+          li.style.display = "";
+          li.innerHTML = li.getAttribute("data-original");
+        });
+        searchBar.focus();
+        // Aggiorna il contatore per mostrare il totale, poiché il filtro è stato rimosso
+        const lang = localStorage.getItem('language') || 'en';
+        document.getElementById("chat-counter-text").textContent = window.totalChats + " " + translations[lang].chatCountSuffix;
+      });
+      document.getElementById("chat-list").addEventListener("click", (event) => {
+        const clickedLi = event.target.closest("li");
+        if (!clickedLi) return;
+        Array.from(document.getElementById("chat-list").children).forEach(li => {
+          li.classList.remove("active");
+        });
+        clickedLi.classList.add("active");
+        const chatId = clickedLi.getAttribute("data-id");
+        const chat = chatData[chatId];
+        document.getElementById("chat-title").textContent = chat.title;
+        const chatLink = document.getElementById("chat-link");
+        if (chat.url) {
+          chatLink.href = chat.url;
+          chatLink.style.display = "inline-flex";
+        } else {
+          chatLink.style.display = "none";
+        }
+        if (chat.messages && chat.messages.length > 0) {
+          renderMessages(chat.messages);
+        } else {
+          document.getElementById("chat-content").innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-comment-slash"></i>
+              <p>${translations[localStorage.getItem('language') || 'it'].emptyState}</p>
+            </div>`;
+        }
+      });
+      function renderMessages(messages) {
+        const lang = localStorage.getItem('language') || 'en';
+        let html = '';
+        messages.forEach((msgObj) => {
+          const role = msgObj.role || "assistant"; // fallback
+          if (role === "user") {
+            html += `
+              <div class="message message-user">
+                <div class="message-header">
+                  <div class="avatar" title="User">U</div>
+                  <span class="sender">${translations[lang].userSender}</span>
+                </div>
+                <div class="message-content">${formatMessage(msgObj.text)}</div>
+              </div>`;
+          } else {
+            html += `
+              <div class="message message-assistant">
+                <div class="message-header">
+                  <div class="avatar" title="Assistant" style="background-color: var(--primary-color)">A</div>
+                  <span class="sender">${window.currentService}</span>
+                </div>
+                <div class="message-content">${formatMessage(msgObj.text)}</div>
+              </div>`;
+          }
+        });
+        document.getElementById("chat-content").innerHTML = html;
+        const scrollPreference = localStorage.getItem('chatPosition') || 'end';
+        const chatContent = document.getElementById("chat-content");
+        chatContent.scrollTop = scrollPreference === 'end' ? chatContent.scrollHeight : 0;
+      }
+      function formatMessage(text) {
+        if (!text) return '';
+        // Conversione dei link e dei blocchi di codice
+        text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary-color);">$1</a>');
+        text = text.replace(/```([^`]+)```/g, '<pre style="background-color: #f6f8fa; padding: 1em; border-radius: 5px; overflow-x: auto;">$1</pre>');
+        text = text.replace(/\n/g, '<br>');
+        
+        // Evidenzia le parole ricercate nel contenuto, se la checkbox è attiva
+        const searchTerm = document.getElementById("search-bar").value.toLowerCase().trim();
+        const searchInContent = document.getElementById("search-content-toggle") && document.getElementById("search-content-toggle").checked;
+        if (searchTerm && searchInContent) {
+          const words = searchTerm.split(/\s+/).filter(word => word.length > 0);
+          words.forEach(word => {
+            const regex = new RegExp(`(${word.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')})`, 'gi');
+            text = text.replace(regex, `<span class="highlight">$1</span>`);
+          });
+        }
+        return text;
+      }
+    
+      // Aggiorna il contatore di chat se è definito
+      document.getElementById("chat-counter-text").textContent = conversations.length + " " + translations[lang].chatCountSuffix;
+
+      attachChatListClickHandler(chatData);
+    }
+
+    function attachChatListClickHandler(chatData) {
+      document.getElementById("chat-list").addEventListener("click", (event) => {
+        const clickedLi = event.target.closest("li");
+        if (!clickedLi) return;
+        Array.from(document.getElementById("chat-list").children).forEach(li => {
+          li.classList.remove("active");
+        });
+        clickedLi.classList.add("active");
+        const chatId = clickedLi.getAttribute("data-id");
+        const chat = chatData[chatId];
+        document.getElementById("chat-title").textContent = chat.title;
+        const lang = localStorage.getItem('language') || 'en';
+        const chatLink = document.getElementById("chat-link");
+
+        // Solo se ci sono messaggi, mostra il link
+        if (chat.messages && chat.messages.length > 0) {
+          if (chat.service === "Claude" && chat.uuid) {
+            chatLink.href = "https://claude.ai/chat/" + chat.uuid;
+            chatLink.innerHTML = '<i class="fas fa-external-link-alt"></i> ' + (translations[lang].viewOnClaude);
+            chatLink.style.display = "inline-flex";
+          } else if (chat.service === "ChatGPT" && chat.conversation_id) {
+            chatLink.href = "https://chat.openai.com/c/" + chat.conversation_id;
+            chatLink.innerHTML = '<i class="fas fa-external-link-alt"></i> ' + translations[lang].viewOnChatGPT;
+            chatLink.style.display = "inline-flex";
+          } else {
+            chatLink.style.display = "none";
+          }
+        } else {
+          chatLink.style.display = "none";
+        }
+
+        if (chat.messages && chat.messages.length > 0) {
+          renderMessages(chat.messages);
+        } else {
+          document.getElementById("chat-content").innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-comment-slash"></i>
+              <p>${translations[lang].emptyState}</p>
+            </div>`;
+        }
+      });
+    }
+
+    // Gestione del file caricato (tramite input o drag & drop)
+    function handleFile(file) {
+      const loadingOverlay = document.getElementById('loading-overlay');
+      const loadingBar = document.getElementById('loading-bar');
+      loadingOverlay.style.display = 'block';
+      const reader = new FileReader();
+      reader.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const percentLoaded = event.loaded / event.total;
+          loadingBar.style.width = Math.floor(percentLoaded * 100) + '%';
+        }
+      };
+      reader.onload = (event) => {
+        try {
+          const data = JSON.parse(event.target.result);
+          document.getElementById('upload-wrapper').style.display = 'none';
+          document.querySelector('.app-container').style.display = 'flex';
+          loadingOverlay.style.display = 'none';
+          processData(data);
+        } catch (e) {
+          const lang = localStorage.getItem('language') || 'en';
+          alert(translations[lang].jsonParseError + e);
+          loadingOverlay.style.display = 'none';
+        }
+      };
+      reader.onerror = () => {
+        const lang = localStorage.getItem('language') || 'en';
+        alert(translations[lang].fileReadError);
+        loadingOverlay.style.display = 'none';
+      };
+      reader.readAsText(file);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const uploadArea = document.getElementById('upload-area');
+      const jsonFileInput = document.getElementById('json-file');
+      uploadArea.addEventListener("click", () => {
+        jsonFileInput.click();
+      });
+      uploadArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('hover');
+      });
+      uploadArea.addEventListener("dragleave", (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('hover');
+      });
+      uploadArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('hover');
+        const files = e.dataTransfer.files;
+        if (files.length) {
+          handleFile(files[0]);
+        }
+      });
+      jsonFileInput.addEventListener("change", (e) => {
+        if (e.target.files.length) {
+          handleFile(e.target.files[0]);
+        }
+      });
+      // Modal: chiude cliccando sulla X
+      document.querySelector("#settings-modal .close-button").addEventListener("click", () => {
+        document.getElementById("settings-modal").style.display = "none";
+      });
+      // Apertura modal dalle impostazioni
+      document.getElementById("open-settings").addEventListener("click", () => {
+        document.getElementById("settings-modal").style.display = "flex";
+      });
+      // Toggle dark mode nel modal
+      document.getElementById("modal-dark-toggle").addEventListener("change", (e) => {
+        if (e.target.checked) {
+          document.body.classList.add('dark-mode');
+          localStorage.setItem('darkMode', 'true');
+        } else {
+          document.body.classList.remove('dark-mode');
+          localStorage.setItem('darkMode', 'false');
+        }
+        updateTranslations();
+      });
+      // Toggle posizione chat nel modal
+      document.getElementById("modal-chat-toggle").addEventListener("change", (e) => {
+        if (e.target.checked) {
+          localStorage.setItem('chatPosition', 'end');
+        } else {
+          localStorage.setItem('chatPosition', 'start');
+        }
+        const lang = localStorage.getItem('language') || 'en';
+        document.getElementById("chat-position-text").textContent = e.target.checked ? translations[lang].chatPositionEnd : translations[lang].chatPositionStart;
+        // Se una chat è già visualizzata, aggiorna lo scroll
+        const chatContent = document.getElementById("chat-content");
+        chatContent.scrollTop = e.target.checked ? chatContent.scrollHeight : 0;
+      });
+      // Gestione del cambio lingua
+      document.getElementById("language-select").addEventListener("change", (e) => {
+        localStorage.setItem('language', e.target.value);
+        updateTranslations();
+      });
+      // Imposta le impostazioni salvate in localStorage
+      if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+        document.getElementById("modal-dark-toggle").checked = true;
+      }
+      if (localStorage.getItem('chatPosition') === 'end') {
+        document.getElementById("modal-chat-toggle").checked = true;
+        document.getElementById("chat-position-text").textContent = translations[localStorage.getItem('language') || 'it'].chatPositionEnd;
+      } else {
+        document.getElementById("modal-chat-toggle").checked = false;
+        document.getElementById("chat-position-text").textContent = translations[localStorage.getItem('language') || 'it'].chatPositionStart;
+      }
+      if (localStorage.getItem('language')) {
+        document.getElementById("language-select").value = localStorage.getItem('language');
+      } else {
+        localStorage.setItem('language', 'en');
+      }
+      updateTranslations();
+    });
+
+    // Evento per il pulsante share: copia in clipboard il titolo della chat + link ChatGPT/Claude
+    document.getElementById("share-button").addEventListener("click", function() {
+        const chatTitle = document.getElementById("chat-title").textContent;
+        const chatLink = document.getElementById("chat-link").href;
+        // Aggiungi i due punti e uno spazio tra titolo e link
+        const shareText = chatTitle + ": " + chatLink;
+        navigator.clipboard.writeText(shareText).then(() => {
+            const lang = localStorage.getItem('language') || 'en';
+            // Crea un piccolo messaggio grigio chiaro che compare e svanisce lentamente
+            const notification = document.createElement("div");
+            notification.id = "copy-notification";
+            notification.textContent = translations[lang].copyNotification;
+            notification.style.position = "fixed";
+            //notification.style.bottom = "20px"; // Mostra il messaggio in basso
+            notification.style.top = "60px"; // Mostra il messaggio in alto
+            notification.style.left = "50%";
+            notification.style.transform = "translateX(-50%)";
+            notification.style.backgroundColor = "#ddd";
+            notification.style.color = "#333";
+            notification.style.padding = "10px 20px";
+            notification.style.borderRadius = "4px";
+            notification.style.opacity = "0";
+            notification.style.transition = "opacity 1s";
+            document.body.appendChild(notification);
+            // Fai comparire il messaggio
+            setTimeout(() => {
+            notification.style.opacity = "1";
+            }, 10);
+            // Dopo 2 secondi, fai svanire e rimuovi l'elemento
+            setTimeout(() => {
+            notification.style.opacity = "0";
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 1000);
+            }, 2000);
+        }).catch(err => {
+            const lang = localStorage.getItem('language') || 'en';
+            console.error(translations[lang].copyError + ": " + err);
+        });
+    });
+
+  </script>
+</body>
+</html>
+
+<!-- DEBUG COMMAND LINE: 
+Per estrarre l'intero record che contiene "title": "Aiuto con immagini" da un file JSON, puoi usare jq in questo modo:
+Comando jq per filtrare l'intero record:
+  jq '.[] | select(.title == "Aiuto con immagini")' conversations_chatgpt.json 
+-->
