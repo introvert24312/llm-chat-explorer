@@ -1,11 +1,13 @@
 # AI Chat Export Viewer
-Un'applicazione web incentrata sulla privacy per elaborare e analizzare localmente le esportazioni delle chat di ChatGPT e Claude.
+Un'applicazione web incentrata sulla privacy per elaborare e analizzare localmente le esportazioni delle chat di ChatGPT e Claude. Le funzioni di ricerca offerte dalle piattaforme ufficiali sono spesso lente e poco pratiche per chi ha molte conversazioni. Questa applicazione permette di gestire in modo più efficiente il proprio archivio di interazioni con l'AI, garantendo un accesso rapido e ordinato alle chat salvate.
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/levysoft/ai-chat-export-viewer?label=latest) [![Github All Releases](https://img.shields.io/github/downloads/levysoft/ai-chat-export-viewer/total.svg)](https://github.com/levysoft/ai-chat-export-viewer/releases) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-yellow.svg)](https://opensource.org/licenses/GPLv3) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/levysoft/ai-chat-export-viewer/graphs/commit-activity) [![GitHub contributors](https://img.shields.io/github/contributors/levysoft/ai-chat-export-viewer.svg)](https://github.com/levysoft/ai-chat-export-viewer/graphs/contributors) [![made-with-html](https://img.shields.io/badge/Made%20with-HTML-orange.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML) [![made-with-css](https://img.shields.io/badge/Made%20with-CSS-blue.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS) [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 [ [English](README.md) | [Italiano](README.it.md) ]
 
 Questa repository fornisce un'applicazione web per visualizzare ed analizzare le esportazioni delle chat da ChatGPT e Claude, con un forte focus sulla privacy. Tutti i dati vengono elaborati localmente nel browser, garantendo che le informazioni personali non vengano inviate a server esterni. Se desideri, puoi scaricare la pagina HTML per ispezionare il codice sorgente e verificare personalmente il funzionamento dell'applicazione.
+
+Sebbene ChatGPT e Claude offrano una funzione di ricerca interna, questa può risultare lenta e macchinosa, soprattutto quando si hanno molte conversazioni salvate. Scaricando il backup delle chat e utilizzando questa applicazione, gli utenti possono gestire in modo più rapido e pratico il proprio archivio di interazioni con l'AI. Questo approccio permette di mantenere un accesso ordinato e veloce alle proprie conversazioni passate, migliorando l'efficienza nella consultazione di informazioni e nella ripresa di discussioni precedenti. Inoltre, lavorare in locale consente di aggirare eventuali limitazioni imposte dalle piattaforme, come la perdita di vecchie chat o la difficoltà di esportare interi archivi di conversazioni.
 
 ## Contenuti
 
@@ -24,7 +26,7 @@ Questa repository fornisce un'applicazione web per visualizzare ed analizzare le
 
 ## Introduzione
 
-**Privacy Chat Export Viewer** è un'applicazione web che consente di caricare ed analizzare file JSON contenenti le conversazioni esportate da ChatGPT e Claude. L'interfaccia intuitiva permette di cercare e visualizzare facilmente le chat, offrendo una soluzione leggera e veloce senza compromettere la privacy dei dati.
+**AI Chat Export Viewer** è un'applicazione web che consente di caricare ed analizzare file JSON contenenti le conversazioni esportate da ChatGPT e Claude. L'interfaccia intuitiva permette di cercare e visualizzare facilmente le chat, offrendo una soluzione leggera e veloce senza compromettere la privacy dei dati.
 
 ## Privacy e sicurezza
 
@@ -32,11 +34,12 @@ L'applicazione è stata progettata con la massima attenzione alla privacy:
 - **Elaborazione locale**: Tutti i dati vengono elaborati direttamente nel browser, senza invio a server esterni.
 - **Nessun tracciamento**: I dati personali e la cronologia delle chat rimangono completamente sul dispositivo dell'utente.
 - **Analisi del codice**: Se desideri approfondire o verificare il funzionamento, puoi scaricare la pagina HTML e analizzare il codice sorgente.
+- **Open Source**: Il progetto è rilasciato sotto licenza GPL v3, garantendo trasparenza e possibilità di verifica e miglioramento del codice da parte della community.
 
 ## Requisiti
 
 - Browser web moderno (Chrome, Firefox, Edge, Safari)
-- Connessione Internet per il caricamento iniziale degli asset (opzionale, per l'utilizzo offline è necessario scaricare tutti i file)
+- Connessione Internet necessaria solo per caricare il file esterno Font Awesome (opzionale, per l'utilizzo offline è necessario scaricare il file CSS corrispondente).
 
 ## Installazione
 
@@ -44,30 +47,29 @@ L'applicazione è stata progettata con la massima attenzione alla privacy:
     ```sh
     git clone https://github.com/levysoft/ai-chat-export-viewer.git
     ```
-2. Apri il file `index.html` nel tuo browser preferito.
-3. *(Opzionale)* Per un utilizzo completamente offline, scarica tutti gli asset presenti nella repository.
+2. Apri il file `ai-chat-export-viewer.html` nel tuo browser preferito.
+3. *(Opzionale)* Per un utilizzo completamente offline, è sufficiente scaricare il file CSS di Font Awesome per eliminare ogni dipendenza da asset esterni.
 
 ## Utilizzo
 
-1. Avvia l'applicazione aprendo il file `index.html` nel browser.
+1. Avvia l'applicazione aprendo il file `ai-chat-export-viewer.html` nel browser.
 2. Trascina il file JSON (ad esempio, `conversations.json`) nell'area di upload oppure clicca per selezionarlo.
 3. Visualizza l'elenco delle chat e seleziona quella che vuoi analizzare.
 4. Usa la barra di ricerca per filtrare le conversazioni per titolo o contenuto.
 5. Personalizza l'interfaccia modificando lingua, modalità dark e posizione dello scroll attraverso le impostazioni.
-6. Se desideri analizzare il codice, puoi scaricare la pagina HTML e ispezionare il sorgente.
 
 ## Descrizione dell'applicazione
 
 L'applicazione è sviluppata con HTML, CSS e JavaScript e offre le seguenti funzionalità:
 - **Caricamento locale del file JSON**: I dati vengono letti e processati tramite l'oggetto `FileReader` senza essere inviati online.
-- **Gestione delle conversazioni**: Supporta i formati di esportazione di ChatGPT e Claude, normalizzando l'ordine delle chat.
+- **Gestione delle conversazioni**: Supporta i formati di esportazione di ChatGPT e Claude, normalizzando l'ordine delle chat e permettendo la ricerca avanzata sia nei titoli delle chat che nei contenuti.
 - **Interfaccia dinamica e responsive**: Una sidebar per navigare tra le chat e un'area di visualizzazione per i messaggi, con supporto alla ricerca e alla personalizzazione.
 - **Modalità multilingua e dark/light**: L'interfaccia si adatta a diverse lingue e preferenze visive.
-- **Condivisione locale**: È possibile copiare il link della chat per condividerlo, senza che i dati vengano memorizzati esternamente.
+- **Visualizzazione diretta delle chat**: Ogni singola chat presente nel backup può essere visualizzata direttamente nel proprio account ChatGPT o Claude cliccando sul link di condivisione associato.
 
 ## Struttura dei file
 
-ai-chat-export-viewer/ ├── index.html # Pagina principale dell'applicazione ├── assets/ # Cartella contenente immagini e screenshot │ ├── screenshot0.jpg │ ├── screenshot1.jpg │ └── screenshot2.jpg ├── README.md # Questo file └── LICENSE # File di licenza (GPL v3)
+ai-chat-export-viewer/ ├── ai-chat-export-viewer.html # Pagina principale dell'applicazione ├── assets/ # Cartella contenente immagini e screenshot │ ├── screenshot0.jpg │ ├── screenshot1.jpg │ └── screenshot2.jpg ├── README.md # Questo file └── LICENSE # File di licenza (GPL v3)
 
 ## Screenshot
 
