@@ -9,6 +9,13 @@ This repository provides a web application for viewing and analyzing chat export
 
 Although ChatGPT and Claude offer internal search functions, these can be slow and cumbersome, especially for users with a large number of saved conversations. By downloading the chat backup and using this application, users can manage their AI interactions more quickly and conveniently. This approach ensures structured and fast access to past conversations, improving efficiency in retrieving information and revisiting previous discussions. Additionally, working locally bypasses platform-imposed limitations, such as losing old chats or difficulties in exporting entire archives.
 
+## Exporting Chats from ChatGPT and Claude
+
+To use this application, you first need to export conversations from ChatGPT or Claude. The official procedures are available at the following links:
+
+- **ChatGPT**: [How to export ChatGPT history](https://help.openai.com/en/articles/7260999-how-do-i-export-my-chatgpt-history-and-data)
+- **Claude**: [How to export Claude chat history](https://support.anthropic.com/en/articles/9450526-how-can-i-export-my-claude-ai-data)
+
 ## Contents
 
 1. [Introduction](#introduction)
