@@ -69,7 +69,7 @@ The application is built with HTML, CSS, and JavaScript and offers the following
 - **Direct Chat Viewing**: Each individual chat in the backup can be accessed directly within the user's ChatGPT or Claude account by clicking the associated share link.
 
 ## File Structure
-ai-chat-export-viewer/ ├── ai-chat-export-viewer.html # Main application page ├── assets/ # Folder containing images and screenshots │ ├── screenshot0.jpg │ ├── screenshot1.jpg │ └── screenshot2.jpg ├── README.md # This file └── LICENSE # License file (GPL v3)
+ai-chat-export-viewer/ ├── ai-chat-export-viewer.html # Main application page ├── assets/ # Folder containing images and screenshots │ ├── screenshot1.jpg │ ├── screenshot2.jpg │ └── screenshot3.jpg │ └── screenshot4.jpg ├── README.md # This file └── LICENSE # License file (GPL v3)
 
 
 ## Screenshots
@@ -77,12 +77,21 @@ ai-chat-export-viewer/ ├── ai-chat-export-viewer.html # Main application p
 Here are some screenshots of the application:
 
 - **Upload Page**:
-  ![Upload Page](assets/screenshot0.jpg)
-- **Chat List**:
-  ![Chat List](assets/screenshot1.jpg)
-- **Conversation Detail**:
-  ![Conversation Detail](assets/screenshot2.jpg)
 
+  ![Upload Page](assets/screenshot1.jpg)
+
+- **Chat List**:
+
+  ![Chat List](assets/screenshot2.jpg)
+
+- **Settings**:
+
+  ![Settings](assets/screenshot3.jpg)
+
+- **Advanced Search**:
+
+  ![Advanced Search](assets/screenshot4.jpg)
+  
 ## Feedback and Contributions
 
 Your feedback is valuable! If you encounter issues or have suggestions, please open an [issue](https://github.com/levysoft/ai-chat-export-viewer/issues) or submit a pull request. Contributions and suggestions for improvements are always welcome.
