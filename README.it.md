@@ -65,7 +65,7 @@ L'applicazione è sviluppata con HTML, CSS e JavaScript e offre le seguenti funz
 - **Caricamento locale del file JSON**: I dati vengono letti e processati tramite l'oggetto `FileReader` senza essere inviati online.
 - **Gestione delle conversazioni**: Supporta i formati di esportazione di ChatGPT e Claude, normalizzando l'ordine delle chat e permettendo la ricerca avanzata sia nei titoli delle chat che nei contenuti.
 - **Interfaccia dinamica e responsive**: Una sidebar per navigare tra le chat e un'area di visualizzazione per i messaggi, con supporto alla ricerca e alla personalizzazione.
-- **Modalità multilingua e dark/light**: L'interfaccia si adatta a diverse lingue e preferenze visive.
+- **Modalità multilingua e dark/light**: L'interfaccia supporta diverse lingue (Inglese, Italiano, Spagnolo, Francese, Tedesco, Polacco, Cinese, Coreano e Giapponese) e si adatta a diverse preferenze visive.
 - **Visualizzazione diretta delle chat**: Ogni singola chat presente nel backup può essere visualizzata direttamente nel proprio account ChatGPT o Claude cliccando sul link di condivisione associato.
 
 ## Struttura dei file
