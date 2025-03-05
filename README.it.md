@@ -69,7 +69,7 @@ L'applicazione è sviluppata con HTML, CSS e JavaScript e offre le seguenti funz
 - **Visualizzazione diretta delle chat**: Ogni singola chat presente nel backup può essere visualizzata direttamente nel proprio account ChatGPT o Claude cliccando sul link di condivisione associato.
 
 ## Struttura dei file
-
+```
 ai-chat-export-viewer/
 ├── ai-chat-export-viewer.html  # Pagina principale dell'applicazione
 ├── assets/                     # Cartella contenente immagini e screenshot
@@ -79,6 +79,7 @@ ai-chat-export-viewer/
 │   └── screenshot4.jpg
 ├── README.md                   # Questo file
 └── LICENSE                     # File di licenza (GPL v3)
+```
 
 ## Screenshot
 
