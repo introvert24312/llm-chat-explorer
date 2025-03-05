@@ -5,7 +5,7 @@ Un'applicazione web incentrata sulla privacy per elaborare e analizzare localmen
 
 [ [English](README.md) | [Italiano](README.it.md) ]
 
-Questa repository fornisce un'applicazione web per visualizzare ed analizzare le esportazioni delle chat da ChatGPT e Claude, con un forte focus sulla privacy. Tutti i dati vengono elaborati localmente nel browser, garantendo che le informazioni personali non vengano inviate a server esterni. Se desideri, puoi scaricare la pagina HTML per ispezionare il codice sorgente e verificare personalmente il funzionamento dell'applicazione.
+Questa repository fornisce un'applicazione web per visualizzare ed analizzare le esportazioni delle chat da ChatGPT e Claude, con un forte focus sulla privacy. Tutti i dati vengono elaborati localmente nel browser, garantendo che le informazioni personali non vengano inviate a server esterni. Se desideri, puoi scaricare la pagina HTML per ispezionare il codice sorgente e verificare personalmente il funzionamento dell'applicazione. L'intero progetto è stato sviluppato per essere completamente standalone, utilizzando solo HTML, CSS e JavaScript, senza dipendenze esterne (eccetto i font). Questo permette agli utenti di scaricare e utilizzare la pagina localmente senza necessità di configurazioni aggiuntive.
 
 Sebbene ChatGPT e Claude offrano una funzione di ricerca interna, questa può risultare lenta e macchinosa, soprattutto quando si hanno molte conversazioni salvate. Scaricando il backup delle chat e utilizzando questa applicazione, gli utenti possono gestire in modo più rapido e pratico il proprio archivio di interazioni con l'AI. Questo approccio permette di mantenere un accesso ordinato e veloce alle proprie conversazioni passate, migliorando l'efficienza nella consultazione di informazioni e nella ripresa di discussioni precedenti. Inoltre, lavorare in locale consente di aggirare eventuali limitazioni imposte dalle piattaforme, come la perdita di vecchie chat o la difficoltà di esportare interi archivi di conversazioni.
 
@@ -34,6 +34,7 @@ L'applicazione è stata progettata con la massima attenzione alla privacy:
 - **Elaborazione locale**: Tutti i dati vengono elaborati direttamente nel browser, senza invio a server esterni.
 - **Nessun tracciamento**: I dati personali e la cronologia delle chat rimangono completamente sul dispositivo dell'utente.
 - **Analisi del codice**: Se desideri approfondire o verificare il funzionamento, puoi scaricare la pagina HTML e analizzare il codice sorgente.
+- **Standalone**: L'intera applicazione è realizzata in semplice HTML, CSS e JavaScript, senza dipendenze esterne (ad eccezione di Font Awesome), proprio per permettere di scaricare e utilizzare la pagina HTML localmente senza alcuna configurazione aggiuntiva.
 - **Open Source**: Il progetto è rilasciato sotto licenza GPL v3, garantendo trasparenza e possibilità di verifica e miglioramento del codice da parte della community.
 
 ## Requisiti
