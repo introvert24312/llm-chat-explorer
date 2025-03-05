@@ -77,12 +77,18 @@ ai-chat-export-viewer/ ├── ai-chat-export-viewer.html # Pagina principale 
 Ecco alcuni screenshot dell'applicazione:
 
 - **Pagina di upload**:
+
   ![Pagina di upload](assets/screenshot1.jpg)
 - **Elenco delle chat**:
+
   ![Elenco chat](assets/screenshot2.jpg)
+
 - **Impostazioni**:
+
   ![Dettaglio chat](assets/screenshot3.jpg)
+
 - **Ricerca avanzata**:
+
   ![Dettaglio chat](assets/screenshot4.jpg)
 
 ## Feedback e contributi
