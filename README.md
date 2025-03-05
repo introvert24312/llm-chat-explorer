@@ -5,7 +5,7 @@ A privacy-focused web application for locally processing and analyzing ChatGPT a
 
 [ [English](README.md) | [Italiano](README.it.md) ]
 
-This repository provides a web application for viewing and analyzing chat exports from ChatGPT and Claude, with a strong focus on privacy. All data is processed locally in the browser, ensuring that personal information is not sent to external servers. If desired, you can download the HTML page to inspect the source code and verify the application’s functionality firsthand.
+This repository provides a web application for viewing and analyzing chat exports from ChatGPT and Claude, with a strong focus on privacy. All data is processed locally in the browser, ensuring that personal information is not sent to external servers. If desired, you can download the HTML page to inspect the source code and verify the application’s functionality firsthand. The entire project was developed to be completely standalone, using only HTML, CSS, and JavaScript, with no external dependencies (except for fonts). This allows users to download and use the page locally without any additional configuration.
 
 Although ChatGPT and Claude offer internal search functions, these can be slow and cumbersome, especially for users with a large number of saved conversations. By downloading the chat backup and using this application, users can manage their AI interactions more quickly and conveniently. This approach ensures structured and fast access to past conversations, improving efficiency in retrieving information and revisiting previous discussions. Additionally, working locally bypasses platform-imposed limitations, such as losing old chats or difficulties in exporting entire archives.
 
@@ -34,6 +34,7 @@ The application is designed with a strong focus on privacy:
 - **Local Processing**: All data is processed directly in the browser, with no external server communication.
 - **No Tracking**: Personal data and chat history remain entirely on the user’s device.
 - **Source Code Inspection**: If desired, you can download the HTML page and analyze the source code.
+- **Standalone**: The entire application is built with simple HTML, CSS, and JavaScript, with no external dependencies (except for Font Awesome), specifically to allow users to download and use the HTML page locally without any additional setup.
 - **Open Source**: The project is released under the GPL v3 license, ensuring transparency and allowing the community to verify and improve the code.
 
 ## Requirements
