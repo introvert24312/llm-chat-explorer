@@ -70,18 +70,20 @@ L'applicazione è sviluppata con HTML, CSS e JavaScript e offre le seguenti funz
 
 ## Struttura dei file
 
-ai-chat-export-viewer/ ├── ai-chat-export-viewer.html # Pagina principale dell'applicazione ├── assets/ # Cartella contenente immagini e screenshot │ ├── screenshot0.jpg │ ├── screenshot1.jpg │ └── screenshot2.jpg ├── README.md # Questo file └── LICENSE # File di licenza (GPL v3)
+ai-chat-export-viewer/ ├── ai-chat-export-viewer.html # Pagina principale dell'applicazione ├── assets/ # Cartella contenente immagini e screenshot │ ├── screenshot1.jpg │ ├── screenshot2.jpg │ └── screenshot3.jpg │ └── screenshot4.jpg ├── README.md # Questo file └── LICENSE # File di licenza (GPL v3)
 
 ## Screenshot
 
 Ecco alcuni screenshot dell'applicazione:
 
 - **Pagina di upload**:
-  ![Pagina di upload](assets/screenshot0.jpg)
+  ![Pagina di upload](assets/screenshot1.jpg)
 - **Elenco delle chat**:
-  ![Elenco chat](assets/screenshot1.jpg)
-- **Dettaglio della conversazione**:
-  ![Dettaglio chat](assets/screenshot2.jpg)
+  ![Elenco chat](assets/screenshot2.jpg)
+- **Impostazioni**:
+  ![Dettaglio chat](assets/screenshot3.jpg)
+- **Ricerca avanzata**:
+  ![Dettaglio chat](assets/screenshot4.jpg)
 
 ## Feedback e contributi
 
