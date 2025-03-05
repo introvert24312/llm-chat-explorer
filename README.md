@@ -69,8 +69,16 @@ The application is built with HTML, CSS, and JavaScript and offers the following
 - **Direct Chat Viewing**: Each individual chat in the backup can be accessed directly within the user's ChatGPT or Claude account by clicking the associated share link.
 
 ## File Structure
-ai-chat-export-viewer/ ├── ai-chat-export-viewer.html # Main application page ├── assets/ # Folder containing images and screenshots │ ├── screenshot1.jpg │ ├── screenshot2.jpg │ └── screenshot3.jpg │ └── screenshot4.jpg ├── README.md # This file └── LICENSE # License file (GPL v3)
 
+ai-chat-export-viewer/
+├── ai-chat-export-viewer.html  # Main application page
+├── assets/                     # Folder containing images and screenshots
+│   ├── screenshot1.jpg
+│   ├── screenshot2.jpg
+│   ├── screenshot3.jpg
+│   └── screenshot4.jpg
+├── README.md                   # This file
+└── LICENSE                     # License file (GPL v3)
 
 ## Screenshots
 
