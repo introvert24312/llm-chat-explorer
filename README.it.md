@@ -35,6 +35,8 @@ Per utilizzare questa applicazione, è necessario prima esportare le conversazio
 
 **AI Chat Export Viewer** è un'applicazione web che consente di caricare ed analizzare file JSON contenenti le conversazioni esportate da ChatGPT e Claude. L'interfaccia intuitiva permette di cercare e visualizzare facilmente le chat, offrendo una soluzione leggera e veloce senza compromettere la privacy dei dati.
 
+Uno dei principali vantaggi di questa applicazione è la possibilità di analizzare facilmente le proprie conversazioni con l'AI senza dover decifrare file JSON grezzi. Mentre ChatGPT fornisce, oltre al file JSON, anche un file HTML preformattato con tutte le chat già integrate, Claude, invece, offre esclusivamente un file JSON, rendendo la consultazione particolarmente difficile, soprattutto se il file è molto grande. **AI Chat Export Viewer** risolve questo problema permettendo di visualizzare e navigare agevolmente tra le conversazioni in un'interfaccia intuitiva e accessibile.
+
 ## Privacy e sicurezza
 
 L'applicazione è stata progettata con la massima attenzione alla privacy:
