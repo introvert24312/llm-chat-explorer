@@ -1,7 +1,7 @@
-# AI Chat Export Viewer
+# LLM Chat Explorer
 A privacy-focused web application for locally processing and analyzing ChatGPT and Claude chat exports. The search functions provided by official platforms are often slow and impractical for users with many conversations. This application allows for more efficient management of AI chat history, ensuring quick and organized access to saved conversations.
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/levysoft/ai-chat-export-viewer?label=latest) [![Github All Releases](https://img.shields.io/github/downloads/levysoft/ai-chat-export-viewer/total.svg)](https://github.com/levysoft/ai-chat-export-viewer/releases) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-yellow.svg)](https://opensource.org/licenses/GPLv3) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/levysoft/ai-chat-export-viewer/graphs/commit-activity) [![GitHub contributors](https://img.shields.io/github/contributors/levysoft/ai-chat-export-viewer.svg)](https://github.com/levysoft/ai-chat-export-viewer/graphs/contributors) [![made-with-html](https://img.shields.io/badge/Made%20with-HTML-orange.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML) [![made-with-css](https://img.shields.io/badge/Made%20with-CSS-blue.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS) [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/levysoft/llm-chat-explorer?label=latest) [![Github All Releases](https://img.shields.io/github/downloads/levysoft/llm-chat-explorer/total.svg)](https://github.com/levysoft/llm-chat-explorer/releases) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-yellow.svg)](https://opensource.org/licenses/GPLv3) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/levysoft/llm-chat-explorer/graphs/commit-activity) [![GitHub contributors](https://img.shields.io/github/contributors/levysoft/llm-chat-explorer.svg)](https://github.com/levysoft/llm-chat-explorer/graphs/contributors) [![made-with-html](https://img.shields.io/badge/Made%20with-HTML-orange.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML) [![made-with-css](https://img.shields.io/badge/Made%20with-CSS-blue.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS) [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 [ [English](README.md) | [Italiano](README.it.md) ]
 
@@ -33,9 +33,9 @@ To use this application, you first need to export conversations from ChatGPT or 
 
 ## Introduction
 
-**AI Chat Export Viewer** is a web application that allows users to upload and analyze JSON files containing exported conversations from ChatGPT and Claude. Its intuitive interface makes it easy to search and view chats, providing a lightweight and fast solution without compromising data privacy.
+**LLM Chat Explorer** is a web application that allows users to upload and analyze JSON files containing exported conversations from ChatGPT and Claude. Its intuitive interface makes it easy to search and view chats, providing a lightweight and fast solution without compromising data privacy.
 
-One of the main advantages of this application is the ability to easily analyze AI conversations without having to decipher raw JSON files. While ChatGPT provides both a JSON file and a preformatted HTML file with all chats integrated, Claude, on the other hand, only offers a JSON file, making it particularly difficult to navigate, especially when dealing with large files. **AI Chat Export Viewer** solves this problem by allowing users to seamlessly view and navigate their conversations through an intuitive and accessible interface.
+One of the main advantages of this application is the ability to easily analyze AI conversations without having to decipher raw JSON files. While ChatGPT provides both a JSON file and a preformatted HTML file with all chats integrated, Claude, on the other hand, only offers a JSON file, making it particularly difficult to navigate, especially when dealing with large files. **LLM Chat Explorer** solves this problem by allowing users to seamlessly view and navigate their conversations through an intuitive and accessible interface.
 
 ## Privacy and Security
 
@@ -55,14 +55,14 @@ The application is designed with a strong focus on privacy:
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/levysoft/ai-chat-export-viewer.git
+    git clone https://github.com/levysoft/llm-chat-explorer.git
     ```
-2. Open the `ai-chat-export-viewer.html` file in your preferred web browser.
+2. Open the `llm-chat-explorer.html` file in your preferred web browser.
 3. *(Optional)* For full offline usage, simply download the Font Awesome CSS file to remove any external asset dependencies.
 
 ## Usage
 
-1. Launch the application by opening the `ai-chat-export-viewer.html` file in your browser.
+1. Launch the application by opening the `llm-chat-explorer.html` file in your browser.
 2. Drag and drop the JSON file (e.g., `conversations.json`) into the upload area or click to select it.
 3. Browse the list of chats and select one to analyze.
 4. Use the search bar to filter conversations by title or content.
@@ -79,8 +79,8 @@ The application is built with HTML, CSS, and JavaScript and offers the following
 
 ## File Structure
 ```
-ai-chat-export-viewer/
-├── ai-chat-export-viewer.html  # Main application page
+llm-chat-explorer/
+├── llm-chat-explorer.html      # Main application page
 ├── assets/                     # Folder containing images and screenshots
 │   ├── screenshot1.jpg
 │   ├── screenshot2.jpg
@@ -112,7 +112,7 @@ Here are some screenshots of the application:
   
 ## Feedback and Contributions
 
-Your feedback is valuable! If you encounter issues or have suggestions, please open an [issue](https://github.com/levysoft/ai-chat-export-viewer/issues) or submit a pull request. Contributions and suggestions for improvements are always welcome.
+Your feedback is valuable! If you encounter issues or have suggestions, please open an [issue](https://github.com/levysoft/llm-chat-explorer/issues) or submit a pull request. Contributions and suggestions for improvements are always welcome.
 
 ## Changelog
 
