@@ -35,6 +35,8 @@ To use this application, you first need to export conversations from ChatGPT or 
 
 **AI Chat Export Viewer** is a web application that allows users to upload and analyze JSON files containing exported conversations from ChatGPT and Claude. Its intuitive interface makes it easy to search and view chats, providing a lightweight and fast solution without compromising data privacy.
 
+One of the main advantages of this application is the ability to easily analyze AI conversations without having to decipher raw JSON files. While ChatGPT provides both a JSON file and a preformatted HTML file with all chats integrated, Claude, on the other hand, only offers a JSON file, making it particularly difficult to navigate, especially when dealing with large files. **AI Chat Export Viewer** solves this problem by allowing users to seamlessly view and navigate their conversations through an intuitive and accessible interface.
+
 ## Privacy and Security
 
 The application is designed with a strong focus on privacy:
