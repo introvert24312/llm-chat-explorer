@@ -579,61 +579,61 @@
     </div>
     <div class="content">
       <div class="content-header">
-        <div style="display:inline-flex; align-items:center; gap:6px;">
-            <h2 id="chat-title" style="margin:0;">Select a chat</h2>
-            <button id="share-button" title="Condividi chat" style="background:none; border:none; cursor:pointer;">
-              <i class="fas fa-share"></i>
-            </button>
-        </div>
-        <a id="chat-link" href="#" target="_blank" class="external-link" style="display: none;">
-          <i class="fas fa-external-link-alt"></i> View on 
-        </a>
+      <div style="display:inline-flex; align-items:center; gap:6px;">
+        <h2 id="chat-title" style="margin:0;">Select a chat</h2>
+        <button id="share-button" title="Share chat" style="background:none; border:none; cursor:pointer;">
+          <i class="fas fa-share"></i>
+        </button>
+      </div>
+      <a id="chat-link" href="#" target="_blank" class="external-link" style="display: none;">
+        <i class="fas fa-external-link-alt"></i> View on 
+      </a>
       </div>
       <div id="chat-content" class="chat-messages">
-        <div class="empty-state">
-          <i class="fas fa-hand-point-left"></i>
-          <p>Select a conversation from the list to view it</p>
-        </div>
+      <div class="empty-state">
+        <i class="fas fa-hand-point-left"></i>
+        <p>Select a conversation from the list to view it</p>
+      </div>
       </div>
     </div>
-  </div>
+    </div>
 
-  <!-- Modal delle impostazioni -->
-  <div id="settings-modal">
+    <!-- Settings modal -->
+    <div id="settings-modal">
     <div class="modal-content">
       <span class="close-button">&times;</span>
-      <h2>Impostazioni</h2>
+      <h2>Settings</h2>
       <div class="setting-item">
-        <span class="label" id="dark-mode-label">Dark mode:</span>
-        <label class="switch">
-          <input type="checkbox" id="modal-dark-toggle">
-          <span class="slider dark-slider"></span>
-        </label>
+      <span class="label" id="dark-mode-label">Dark mode:</span>
+      <label class="switch">
+        <input type="checkbox" id="modal-dark-toggle">
+        <span class="slider dark-slider"></span>
+      </label>
       </div>
       <div class="setting-item">
-        <span class="label" id="chat-position-label">Chat position:</span>
-        <label class="switch">
-          <input type="checkbox" id="modal-chat-toggle" checked>
-          <span class="slider"></span>
-        </label>
-        <span id="chat-position-text">At end</span>
+      <span class="label" id="chat-position-label">Chat position:</span>
+      <label class="switch">
+        <input type="checkbox" id="modal-chat-toggle" checked>
+        <span class="slider"></span>
+      </label>
+      <span id="chat-position-text">At end</span>
       </div>
       <div class="setting-item">
-        <span class="label" id="language-label">Language:</span>
-        <select id="language-select">
-          <option value="en">English</option>
-          <option value="it">Italiano</option>
-          <option value="es">Español</option>
-          <option value="fr">Français</option>
-          <option value="de">Deutsch</option>
-          <option value="pl">Polski</option>
-          <option value="zh">中文</option>
-          <option value="ko">한국어</option>
-          <option value="ja">日本語</option>      
-        </select>
+      <span class="label" id="language-label">Language:</span>
+      <select id="language-select">
+        <option value="en">English</option>
+        <option value="it">Italiano</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="pl">Polski</option>
+        <option value="zh">中文</option>
+        <option value="ko">한국어</option>
+        <option value="ja">日本語</option>      
+      </select>
       </div>
     </div>
-  </div>
+    </div>
 
   <script>
     /* Traduzioni per le varie lingue */
@@ -909,14 +909,14 @@
         visibleSeparator: "の"
       }
     };
-    // Aggiorna i testi in base alla lingua scelta
+    // Update texts based on the selected language
     function updateTranslations() {
       const lang = localStorage.getItem('language') || 'en';
-      // Aggiorna il meta tag description
+      // Update the meta tag description
       document.querySelector("meta[name='description']").setAttribute("content", translations[lang].metaDescription);
-      // Aggiorna il tooltip del titolo cliccabile nella sidebar-header
+      // Update the tooltip of the clickable title in the sidebar-header
       document.querySelector(".sidebar-header h1").setAttribute("title", translations[lang].reloadTooltip);
-      // Aggiorna il tooltip dell'icona delle impostazioni
+      // Update the tooltip of the settings icon
       document.getElementById("open-settings").setAttribute("title", translations[lang].openSettingsTooltip);
       // Upload area
       document.querySelector("#upload-area .upload-title span").textContent = translations[lang].uploadTitle;
@@ -924,65 +924,63 @@
       document.querySelector("#upload-area p.upload-instruction").textContent = translations[lang].uploadInstruction;
       // Search placeholder
       document.getElementById("search-bar").placeholder = translations[lang].searchPlaceholder;
-      // Content header: se non è stato ancora selezionato nulla, mostra il testo predefinito
-      if(document.getElementById("chat-title").textContent.trim() === "Seleziona una chat" ||
-         document.getElementById("chat-title").textContent.trim() === "Select a chat" ||
-         document.getElementById("chat-title").textContent.trim() === "Selecciona un chat" ||
-         document.getElementById("chat-title").textContent.trim() === "Sélectionnez une conversation" ||
-         document.getElementById("chat-title").textContent.trim() === "Wähle einen Chat" ||
-         document.getElementById("chat-title").textContent.trim() === "Wybierz czat" ||
-         document.getElementById("chat-title").textContent.trim() === "选择一个聊天" ||
-         document.getElementById("chat-title").textContent.trim() === "채팅 선택" ||
-         document.getElementById("chat-title").textContent.trim() === "チャットを選択") {
-      } {
-        document.getElementById("chat-title").textContent = translations[lang].selectChat;
+      // Content header: if nothing has been selected yet, show the default text
+      if(document.getElementById("chat-title").textContent.trim() === "Select a chat" ||
+       document.getElementById("chat-title").textContent.trim() === "Seleziona una chat" ||
+       document.getElementById("chat-title").textContent.trim() === "Selecciona un chat" ||
+       document.getElementById("chat-title").textContent.trim() === "Sélectionnez une conversation" ||
+       document.getElementById("chat-title").textContent.trim() === "Wähle einen Chat" ||
+       document.getElementById("chat-title").textContent.trim() === "Wybierz czat" ||
+       document.getElementById("chat-title").textContent.trim() === "选择一个聊天" ||
+       document.getElementById("chat-title").textContent.trim() === "채팅 선택" ||
+       document.getElementById("chat-title").textContent.trim() === "チャットを選択") {
+      document.getElementById("chat-title").textContent = translations[lang].selectChat;
       }
       // External link text
       document.querySelector("#chat-link").innerHTML = '<i class="fas fa-external-link-alt"></i> ' + translations[lang].viewOnChatGPT;
       // Empty state
       let emptyStateP = document.querySelector(".empty-state p");
       if(emptyStateP) {
-        emptyStateP.textContent = translations[lang].emptyState;
+      emptyStateP.textContent = translations[lang].emptyState;
       }
-      // Aggiorna l'etichetta del servizio se esiste e se il servizio è già stato determinato
+      // Update the service label if it exists and the service has already been determined
       if (document.getElementById("service-label") && window.currentService) {
-        document.getElementById("service-label").textContent = translations[lang].sourceLabel + " " + window.currentService;
+      document.getElementById("service-label").textContent = translations[lang].sourceLabel + " " + window.currentService;
       }
       // Settings modal
       document.querySelector("#settings-modal h2").textContent = translations[lang].settingsTitle;
       document.getElementById("dark-mode-label").textContent = translations[lang].darkModeLabel;
       document.getElementById("chat-position-label").textContent = translations[lang].chatPositionLabel;
       document.getElementById("language-label").textContent = translations[lang].languageLabel;
-      // Aggiorna il testo della posizione chat nel modal in base allo stato del toggle
+      // Update the chat position text in the modal based on the toggle state
       const chatPosToggle = document.getElementById("modal-chat-toggle");
       if(chatPosToggle.checked) {
-        document.getElementById("chat-position-text").textContent = translations[lang].chatPositionEnd;
+      document.getElementById("chat-position-text").textContent = translations[lang].chatPositionEnd;
       } else {
-        document.getElementById("chat-position-text").textContent = translations[lang].chatPositionStart;
+      document.getElementById("chat-position-text").textContent = translations[lang].chatPositionStart;
       }
       document.querySelector(".search-options label[for='search-content-toggle']").textContent = translations[lang].searchContentLabel;
       document.getElementById("share-button").title = translations[lang].shareButtonTitle;
 
-      // Aggiorna il contatore in base al contenuto del campo di ricerca
+      // Update the counter based on the search field content
       const searchBar = document.getElementById("search-bar");
       const currentSearch = searchBar.value.toLowerCase().trim();
       if (currentSearch !== "") {
-        // Se c'è un filtro attivo, conta le chat visibili
-        let visibleCount = 0;
-        Array.from(document.getElementById("chat-list").children).forEach(li => {
-          if (li.style.display !== "none") {
-            visibleCount++;
-          }
-        });
-        document.getElementById("chat-counter-text").textContent =
-          visibleCount + " " + translations[lang].visibleSeparator + " " + window.totalChats + " " + translations[lang].chatCountSuffix;
+      // If there is an active filter, count the visible chats
+      let visibleCount = 0;
+      Array.from(document.getElementById("chat-list").children).forEach(li => {
+        if (li.style.display !== "none") {
+        visibleCount++;
+        }
+      });
+      document.getElementById("chat-counter-text").textContent =
+        visibleCount + " " + translations[lang].visibleSeparator + " " + window.totalChats + " " + translations[lang].chatCountSuffix;
       } else {
-        document.getElementById("chat-counter-text").textContent = window.totalChats + " " + translations[lang].chatCountSuffix;
+      document.getElementById("chat-counter-text").textContent = window.totalChats + " " + translations[lang].chatCountSuffix;
       }
-
     }
 
-    // Funzione per formattare la data in formato dd/mm/yyyy
+    // Function to format the date in dd/mm/yyyy format
     function formatDate(date) {
       const d = new Date(date);
       const day = ('0' + d.getDate()).slice(-2);
@@ -995,257 +993,257 @@
       const lang = localStorage.getItem('language') || 'en';
       let conversations = [];
       if (Array.isArray(data)) {
-        conversations = data;
+      conversations = data;
       } else {
-        conversations = data.conversations || [];
+      conversations = data.conversations || [];
       }
 
-      // Se il file è in formato Claude (ovvero, se il primo oggetto contiene la proprietà chat_messages), l'ordine è dal più vecchio al più nuovo.
-      // Invertiamo l'array per avere il medesimo ordine (dal più recente al più vecchio) di ChatGPT in modo da normalizzare la visualizzazione del flusso di chat.
+      // If the file is in Claude format (i.e., if the first object contains the property chat_messages), the order is from oldest to newest.
+      // Reverse the array to have the same order (from most recent to oldest) as ChatGPT to normalize the chat flow display.
       if (conversations.length > 0 && conversations[0].chat_messages) {
-        conversations.reverse();
+      conversations.reverse();
       }
 
-      // Salva il totale globalmente
+      // Save the total globally
       window.totalChats = conversations.length;
 
       let chatListHTML = '';
       const chatData = {};
 
       conversations.forEach((chat, index) => {
-        // Usa 'title' (ChatGPT) o 'name' (Claude) per il titolo
-        let title = chat.title || chat.name || `Chat ${index + 1}`;
-        let messages = [];
-        let service = "ChatGPT"; // default
-        let uuid = null;
-        let conversation_id = null;
+      // Use 'title' (ChatGPT) or 'name' (Claude) for the title
+      let title = chat.title || chat.name || `Chat ${index + 1}`;
+      let messages = [];
+      let service = "ChatGPT"; // default
+      let uuid = null;
+      let conversation_id = null;
 
-        // Se il formato è Claude (campo "chat_messages")
-        if (chat.chat_messages) {
-          service = "Claude";
-          uuid = chat.uuid; // da Claude
-          chat.chat_messages.forEach((msg) => {
-            // Mappa il ruolo in base al campo sender
-            let role = "";
-            if (msg.sender) {
-              role = msg.sender === "human" ? "user" : "assistant";
-            } else {
-              role = "assistant"; // default
-            }
-            if (msg.text && msg.text.trim() !== '') {
-              messages.push({ text: msg.text, role: role });
-            } else if (msg.content) {
-              msg.content.forEach((part) => {
-                if (part.text && part.text.trim() !== '') {
-                  messages.push({ text: part.text, role: role });
-                }
-              });
-            }
+      // If the format is Claude (field "chat_messages")
+      if (chat.chat_messages) {
+        service = "Claude";
+        uuid = chat.uuid; // from Claude
+        chat.chat_messages.forEach((msg) => {
+        // Map the role based on the sender field
+        let role = "";
+        if (msg.sender) {
+          role = msg.sender === "human" ? "user" : "assistant";
+        } else {
+          role = "assistant"; // default
+        }
+        if (msg.text && msg.text.trim() !== '') {
+          messages.push({ text: msg.text, role: role });
+        } else if (msg.content) {
+          msg.content.forEach((part) => {
+          if (part.text && part.text.trim() !== '') {
+            messages.push({ text: part.text, role: role });
+          }
           });
         }
-        // Se il formato è ChatGPT con mapping
-        else if (chat.mapping) {
-          if (chat.conversation_id) {
-            conversation_id = chat.conversation_id;
+        });
+      }
+      // If the format is ChatGPT with mapping
+      else if (chat.mapping) {
+        if (chat.conversation_id) {
+        conversation_id = chat.conversation_id;
+        }
+        for (let key in chat.mapping) {
+        const messageObj = chat.mapping[key];
+        if (messageObj.message && messageObj.message.content) {
+          // Extract the role from the author.role field (default to "assistant" if not present)
+          const role = messageObj.message.author && messageObj.message.author.role ? messageObj.message.author.role : "assistant";
+          const parts = messageObj.message.content.parts || [];
+          parts.forEach((part) => {
+          if (typeof part === 'string' && part.trim() !== '') {
+            messages.push({ text: part, role: role });
           }
-          for (let key in chat.mapping) {
-            const messageObj = chat.mapping[key];
-            if (messageObj.message && messageObj.message.content) {
-              // Estrai il ruolo dal campo author.role (default a "assistant" se non presente)
-              const role = messageObj.message.author && messageObj.message.author.role ? messageObj.message.author.role : "assistant";
-              const parts = messageObj.message.content.parts || [];
-              parts.forEach((part) => {
-                if (typeof part === 'string' && part.trim() !== '') {
-                  messages.push({ text: part, role: role });
-                }
-              });
-            }
-          }
+          });
         }
+        }
+      }
 
-        // Gestione della data di creazione (Claude usa "created_at")
-        let createdTime = null;
-        if (chat.created_at) {
-          createdTime = new Date(chat.created_at);
-        } else if (chat.create_time) {
-          createdTime = typeof chat.create_time === 'number' ? new Date(chat.create_time * 1000) : new Date(chat.create_time);
-        }
+      // Handle creation date (Claude uses "created_at")
+      let createdTime = null;
+      if (chat.created_at) {
+        createdTime = new Date(chat.created_at);
+      } else if (chat.create_time) {
+        createdTime = typeof chat.create_time === 'number' ? new Date(chat.create_time * 1000) : new Date(chat.create_time);
+      }
 
-        let displayTitle = title;
-        if (createdTime) {
-          displayTitle += ` <span class='chat-date'>${formatDate(createdTime)}</span>`;
-        }
-        chatListHTML += `<li data-id="${index}" title="${title}">${displayTitle}</li>`;
-        chatData[index] = {
-          title: title,
-          messages: messages,
-          created_time: createdTime ? formatDate(createdTime) : "",
-          service: service,
-          uuid: uuid,
-          conversation_id: conversation_id
-        };
+      let displayTitle = title;
+      if (createdTime) {
+        displayTitle += ` <span class='chat-date'>${formatDate(createdTime)}</span>`;
+      }
+      chatListHTML += `<li data-id="${index}" title="${title}">${displayTitle}</li>`;
+      chatData[index] = {
+        title: title,
+        messages: messages,
+        created_time: createdTime ? formatDate(createdTime) : "",
+        service: service,
+        uuid: uuid,
+        conversation_id: conversation_id
+      };
       });
 
       document.getElementById("chat-list").innerHTML = chatListHTML;
       Array.from(document.getElementById("chat-list").children).forEach(li => {
-        li.setAttribute("data-original", li.innerHTML);
+      li.setAttribute("data-original", li.innerHTML);
       });
       if (conversations.length > 0) {
-        // Se il primo oggetto contiene "chat_messages", il file è di Claude, altrimenti ChatGPT
-        let serviceType = (conversations[0].chat_messages) ? "Claude" : "ChatGPT";
-        window.currentService = serviceType; // Salva il servizio globalmente
-        document.getElementById("service-label").textContent = translations[lang].sourceLabel + " " + serviceType;
+      // If the first object contains "chat_messages", the file is from Claude, otherwise ChatGPT
+      let serviceType = (conversations[0].chat_messages) ? "Claude" : "ChatGPT";
+      window.currentService = serviceType; // Save the service globally
+      document.getElementById("service-label").textContent = translations[lang].sourceLabel + " " + serviceType;
       }
       const searchBar = document.getElementById("search-bar");
       const clearSearch = document.getElementById("clear-search");
 
       searchBar.addEventListener("input", () => {
-        const searchTerm = searchBar.value.toLowerCase().trim();
-        clearSearch.style.display = searchTerm !== "" ? "block" : "none";
-        const words = searchTerm.split(/\s+/).filter(word => word.length > 0);
-        const searchInContent = document.getElementById("search-content-toggle").checked;
-        let visibleCount = 0; // variabile per contare le chat visibili
+      const searchTerm = searchBar.value.toLowerCase().trim();
+      clearSearch.style.display = searchTerm !== "" ? "block" : "none";
+      const words = searchTerm.split(/\s+/).filter(word => word.length > 0);
+      const searchInContent = document.getElementById("search-content-toggle").checked;
+      let visibleCount = 0; // variable to count visible chats
 
-        Array.from(document.getElementById("chat-list").children).forEach(li => {
-          const chatId = li.getAttribute("data-id");
-          const chat = chatData[chatId];
-          const titleText = chat.title.toLowerCase();
-          // Controllo sul titolo
-          const titleMatches = words.every(word => titleText.includes(word));
-          let contentMatches = false;
-          if (searchInContent && chat.messages) {
-            contentMatches = chat.messages.some(msgObj => {
-              return words.every(word => msgObj.text.toLowerCase().includes(word));
-            });
-          }
-          const matches = titleMatches || contentMatches;
-          li.style.display = matches ? "" : "none";
-          if (matches) {
-            visibleCount++;
-            // Evidenziazione nel titolo (se applicabile)
-            if (titleMatches && words.length > 0) {
-              let newHTML = li.getAttribute("data-original");
-              words.forEach(word => {
-                const regex = new RegExp(`(${word.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')})`, 'gi');
-                newHTML = newHTML.replace(regex, `<span class="highlight">$1</span>`);
-              });
-              li.innerHTML = newHTML;
-            } else {
-              li.innerHTML = li.getAttribute("data-original");
-            }
-          }
+      Array.from(document.getElementById("chat-list").children).forEach(li => {
+        const chatId = li.getAttribute("data-id");
+        const chat = chatData[chatId];
+        const titleText = chat.title.toLowerCase();
+        // Check the title
+        const titleMatches = words.every(word => titleText.includes(word));
+        let contentMatches = false;
+        if (searchInContent && chat.messages) {
+        contentMatches = chat.messages.some(msgObj => {
+          return words.every(word => msgObj.text.toLowerCase().includes(word));
         });
-        
-        // Aggiorna il contatore: "visibili di totali chat totali"
-        const lang = localStorage.getItem('language') || 'en';
-        if (visibleCount === window.totalChats) {
-          document.getElementById("chat-counter-text").textContent = window.totalChats + " " + translations[lang].chatCountSuffix;
-        } else {
-          document.getElementById("chat-counter-text").textContent = visibleCount + " di " + window.totalChats + " " + translations[lang].chatCountSuffix;
         }
-        
-        // Se una chat è attiva, aggiorna anche il contenuto dei messaggi
-        const activeLi = document.querySelector(".chat-list li.active");
-        if (activeLi) {
-          const activeChatId = activeLi.getAttribute("data-id");
-          renderMessages(chatData[activeChatId].messages);
+        const matches = titleMatches || contentMatches;
+        li.style.display = matches ? "" : "none";
+        if (matches) {
+        visibleCount++;
+        // Highlight in the title (if applicable)
+        if (titleMatches && words.length > 0) {
+          let newHTML = li.getAttribute("data-original");
+          words.forEach(word => {
+          const regex = new RegExp(`(${word.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')})`, 'gi');
+          newHTML = newHTML.replace(regex, `<span class="highlight">$1</span>`);
+          });
+          li.innerHTML = newHTML;
+        } else {
+          li.innerHTML = li.getAttribute("data-original");
+        }
         }
       });
-      // Aggiungo questo listener, per aggiornare la ricerca al cambio della checkbox:
+      
+      // Update the counter: "visible of total chats total"
+      const lang = localStorage.getItem('language') || 'en';
+      if (visibleCount === window.totalChats) {
+        document.getElementById("chat-counter-text").textContent = window.totalChats + " " + translations[lang].chatCountSuffix;
+      } else {
+        document.getElementById("chat-counter-text").textContent = visibleCount + " " + translations[lang].visibleSeparator + " " + window.totalChats + " " + translations[lang].chatCountSuffix;
+      }
+      
+      // If a chat is active, also update the message content
+      const activeLi = document.querySelector(".chat-list li.active");
+      if (activeLi) {
+        const activeChatId = activeLi.getAttribute("data-id");
+        renderMessages(chatData[activeChatId].messages);
+      }
+      });
+      // Add this listener to update the search when the checkbox changes:
       document.getElementById("search-content-toggle").addEventListener("change", () => {
-        // Simula l'evento "input" sul campo di ricerca per aggiornare i risultati
-        searchBar.dispatchEvent(new Event("input"));
+      // Simulate the "input" event on the search field to update the results
+      searchBar.dispatchEvent(new Event("input"));
       });
       clearSearch.addEventListener("click", () => {
-        searchBar.value = "";
-        clearSearch.style.display = "none";
-        Array.from(document.getElementById("chat-list").children).forEach(li => {
-          li.style.display = "";
-          li.innerHTML = li.getAttribute("data-original");
-        });
-        searchBar.focus();
-        // Aggiorna il contatore per mostrare il totale, poiché il filtro è stato rimosso
-        const lang = localStorage.getItem('language') || 'en';
-        document.getElementById("chat-counter-text").textContent = window.totalChats + " " + translations[lang].chatCountSuffix;
+      searchBar.value = "";
+      clearSearch.style.display = "none";
+      Array.from(document.getElementById("chat-list").children).forEach(li => {
+        li.style.display = "";
+        li.innerHTML = li.getAttribute("data-original");
+      });
+      searchBar.focus();
+      // Update the counter to show the total, as the filter has been removed
+      const lang = localStorage.getItem('language') || 'en';
+      document.getElementById("chat-counter-text").textContent = window.totalChats + " " + translations[lang].chatCountSuffix;
       });
       document.getElementById("chat-list").addEventListener("click", (event) => {
-        const clickedLi = event.target.closest("li");
-        if (!clickedLi) return;
-        Array.from(document.getElementById("chat-list").children).forEach(li => {
-          li.classList.remove("active");
-        });
-        clickedLi.classList.add("active");
-        const chatId = clickedLi.getAttribute("data-id");
-        const chat = chatData[chatId];
-        document.getElementById("chat-title").textContent = chat.title;
-        const chatLink = document.getElementById("chat-link");
-        if (chat.url) {
-          chatLink.href = chat.url;
-          chatLink.style.display = "inline-flex";
-        } else {
-          chatLink.style.display = "none";
-        }
-        if (chat.messages && chat.messages.length > 0) {
-          renderMessages(chat.messages);
-        } else {
-          document.getElementById("chat-content").innerHTML = `
-            <div class="empty-state">
-              <i class="fas fa-comment-slash"></i>
-              <p>${translations[localStorage.getItem('language') || 'it'].emptyState}</p>
-            </div>`;
-        }
+      const clickedLi = event.target.closest("li");
+      if (!clickedLi) return;
+      Array.from(document.getElementById("chat-list").children).forEach(li => {
+        li.classList.remove("active");
+      });
+      clickedLi.classList.add("active");
+      const chatId = clickedLi.getAttribute("data-id");
+      const chat = chatData[chatId];
+      document.getElementById("chat-title").textContent = chat.title;
+      const chatLink = document.getElementById("chat-link");
+      if (chat.url) {
+        chatLink.href = chat.url;
+        chatLink.style.display = "inline-flex";
+      } else {
+        chatLink.style.display = "none";
+      }
+      if (chat.messages && chat.messages.length > 0) {
+        renderMessages(chat.messages);
+      } else {
+        document.getElementById("chat-content").innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-comment-slash"></i>
+          <p>${translations[localStorage.getItem('language') || 'en'].emptyState}</p>
+        </div>`;
+      }
       });
       function renderMessages(messages) {
-        const lang = localStorage.getItem('language') || 'en';
-        let html = '';
-        messages.forEach((msgObj) => {
-          const role = msgObj.role || "assistant"; // fallback
-          if (role === "user") {
-            html += `
-              <div class="message message-user">
-                <div class="message-header">
-                  <div class="avatar" title="User">U</div>
-                  <span class="sender">${translations[lang].userSender}</span>
-                </div>
-                <div class="message-content">${formatMessage(msgObj.text)}</div>
-              </div>`;
-          } else {
-            html += `
-              <div class="message message-assistant">
-                <div class="message-header">
-                  <div class="avatar" title="Assistant" style="background-color: var(--primary-color)">A</div>
-                  <span class="sender">${window.currentService}</span>
-                </div>
-                <div class="message-content">${formatMessage(msgObj.text)}</div>
-              </div>`;
-          }
-        });
-        document.getElementById("chat-content").innerHTML = html;
-        const scrollPreference = localStorage.getItem('chatPosition') || 'end';
-        const chatContent = document.getElementById("chat-content");
-        chatContent.scrollTop = scrollPreference === 'end' ? chatContent.scrollHeight : 0;
+      const lang = localStorage.getItem('language') || 'en';
+      let html = '';
+      messages.forEach((msgObj) => {
+        const role = msgObj.role || "assistant"; // fallback
+        if (role === "user") {
+        html += `
+          <div class="message message-user">
+          <div class="message-header">
+            <div class="avatar" title="User">U</div>
+            <span class="sender">${translations[lang].userSender}</span>
+          </div>
+          <div class="message-content">${formatMessage(msgObj.text)}</div>
+          </div>`;
+        } else {
+        html += `
+          <div class="message message-assistant">
+          <div class="message-header">
+            <div class="avatar" title="Assistant" style="background-color: var(--primary-color)">A</div>
+            <span class="sender">${window.currentService}</span>
+          </div>
+          <div class="message-content">${formatMessage(msgObj.text)}</div>
+          </div>`;
+        }
+      });
+      document.getElementById("chat-content").innerHTML = html;
+      const scrollPreference = localStorage.getItem('chatPosition') || 'end';
+      const chatContent = document.getElementById("chat-content");
+      chatContent.scrollTop = scrollPreference === 'end' ? chatContent.scrollHeight : 0;
       }
       function formatMessage(text) {
-        if (!text) return '';
-        // Conversione dei link e dei blocchi di codice
-        text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary-color);">$1</a>');
-        text = text.replace(/```([^`]+)```/g, '<pre style="background-color: #f6f8fa; padding: 1em; border-radius: 5px; overflow-x: auto;">$1</pre>');
-        text = text.replace(/\n/g, '<br>');
-        
-        // Evidenzia le parole ricercate nel contenuto, se la checkbox è attiva
-        const searchTerm = document.getElementById("search-bar").value.toLowerCase().trim();
-        const searchInContent = document.getElementById("search-content-toggle") && document.getElementById("search-content-toggle").checked;
-        if (searchTerm && searchInContent) {
-          const words = searchTerm.split(/\s+/).filter(word => word.length > 0);
-          words.forEach(word => {
-            const regex = new RegExp(`(${word.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')})`, 'gi');
-            text = text.replace(regex, `<span class="highlight">$1</span>`);
-          });
-        }
-        return text;
+      if (!text) return '';
+      // Convert links and code blocks
+      text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary-color);">$1</a>');
+      text = text.replace(/```([^`]+)```/g, '<pre style="background-color: #f6f8fa; padding: 1em; border-radius: 5px; overflow-x: auto;">$1</pre>');
+      text = text.replace(/\n/g, '<br>');
+      
+      // Highlight searched words in the content if the checkbox is active
+      const searchTerm = document.getElementById("search-bar").value.toLowerCase().trim();
+      const searchInContent = document.getElementById("search-content-toggle") && document.getElementById("search-content-toggle").checked;
+      if (searchTerm && searchInContent) {
+        const words = searchTerm.split(/\s+/).filter(word => word.length > 0);
+        words.forEach(word => {
+        const regex = new RegExp(`(${word.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')})`, 'gi');
+        text = text.replace(regex, `<span class="highlight">$1</span>`);
+        });
+      }
+      return text;
       }
     
-      // Aggiorna il contatore di chat se è definito
+      // Update the chat counter if defined
       document.getElementById("chat-counter-text").textContent = conversations.length + " " + translations[lang].chatCountSuffix;
 
       attachChatListClickHandler(chatData);
@@ -1253,76 +1251,76 @@
 
     function attachChatListClickHandler(chatData) {
       document.getElementById("chat-list").addEventListener("click", (event) => {
-        const clickedLi = event.target.closest("li");
-        if (!clickedLi) return;
-        Array.from(document.getElementById("chat-list").children).forEach(li => {
-          li.classList.remove("active");
-        });
-        clickedLi.classList.add("active");
-        const chatId = clickedLi.getAttribute("data-id");
-        const chat = chatData[chatId];
-        document.getElementById("chat-title").textContent = chat.title;
-        const lang = localStorage.getItem('language') || 'en';
-        const chatLink = document.getElementById("chat-link");
+      const clickedLi = event.target.closest("li");
+      if (!clickedLi) return;
+      Array.from(document.getElementById("chat-list").children).forEach(li => {
+        li.classList.remove("active");
+      });
+      clickedLi.classList.add("active");
+      const chatId = clickedLi.getAttribute("data-id");
+      const chat = chatData[chatId];
+      document.getElementById("chat-title").textContent = chat.title;
+      const lang = localStorage.getItem('language') || 'en';
+      const chatLink = document.getElementById("chat-link");
 
-        // Solo se ci sono messaggi, mostra il link
-        if (chat.messages && chat.messages.length > 0) {
-          if (chat.service === "Claude" && chat.uuid) {
-            chatLink.href = "https://claude.ai/chat/" + chat.uuid;
-            chatLink.innerHTML = '<i class="fas fa-external-link-alt"></i> ' + (translations[lang].viewOnClaude);
-            chatLink.style.display = "inline-flex";
-          } else if (chat.service === "ChatGPT" && chat.conversation_id) {
-            chatLink.href = "https://chat.openai.com/c/" + chat.conversation_id;
-            chatLink.innerHTML = '<i class="fas fa-external-link-alt"></i> ' + translations[lang].viewOnChatGPT;
-            chatLink.style.display = "inline-flex";
-          } else {
-            chatLink.style.display = "none";
-          }
+      // Only show the link if there are messages
+      if (chat.messages && chat.messages.length > 0) {
+        if (chat.service === "Claude" && chat.uuid) {
+        chatLink.href = "https://claude.ai/chat/" + chat.uuid;
+        chatLink.innerHTML = '<i class="fas fa-external-link-alt"></i> ' + (translations[lang].viewOnClaude);
+        chatLink.style.display = "inline-flex";
+        } else if (chat.service === "ChatGPT" && chat.conversation_id) {
+        chatLink.href = "https://chat.openai.com/c/" + chat.conversation_id;
+        chatLink.innerHTML = '<i class="fas fa-external-link-alt"></i> ' + translations[lang].viewOnChatGPT;
+        chatLink.style.display = "inline-flex";
         } else {
-          chatLink.style.display = "none";
+        chatLink.style.display = "none";
         }
+      } else {
+        chatLink.style.display = "none";
+      }
 
-        if (chat.messages && chat.messages.length > 0) {
-          renderMessages(chat.messages);
-        } else {
-          document.getElementById("chat-content").innerHTML = `
-            <div class="empty-state">
-              <i class="fas fa-comment-slash"></i>
-              <p>${translations[lang].emptyState}</p>
-            </div>`;
-        }
+      if (chat.messages && chat.messages.length > 0) {
+        renderMessages(chat.messages);
+      } else {
+        document.getElementById("chat-content").innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-comment-slash"></i>
+          <p>${translations[lang].emptyState}</p>
+        </div>`;
+      }
       });
     }
 
-    // Gestione del file caricato (tramite input o drag & drop)
+    // Handle the uploaded file (via input or drag & drop)
     function handleFile(file) {
       const loadingOverlay = document.getElementById('loading-overlay');
       const loadingBar = document.getElementById('loading-bar');
       loadingOverlay.style.display = 'block';
       const reader = new FileReader();
       reader.onprogress = (event) => {
-        if (event.lengthComputable) {
-          const percentLoaded = event.loaded / event.total;
-          loadingBar.style.width = Math.floor(percentLoaded * 100) + '%';
-        }
+      if (event.lengthComputable) {
+        const percentLoaded = event.loaded / event.total;
+        loadingBar.style.width = Math.floor(percentLoaded * 100) + '%';
+      }
       };
       reader.onload = (event) => {
-        try {
-          const data = JSON.parse(event.target.result);
-          document.getElementById('upload-wrapper').style.display = 'none';
-          document.querySelector('.app-container').style.display = 'flex';
-          loadingOverlay.style.display = 'none';
-          processData(data);
-        } catch (e) {
-          const lang = localStorage.getItem('language') || 'en';
-          alert(translations[lang].jsonParseError + e);
-          loadingOverlay.style.display = 'none';
-        }
+      try {
+        const data = JSON.parse(event.target.result);
+        document.getElementById('upload-wrapper').style.display = 'none';
+        document.querySelector('.app-container').style.display = 'flex';
+        loadingOverlay.style.display = 'none';
+        processData(data);
+      } catch (e) {
+        const lang = localStorage.getItem('language') || 'en';
+        alert(translations[lang].jsonParseError + e);
+        loadingOverlay.style.display = 'none';
+      }
       };
       reader.onerror = () => {
-        const lang = localStorage.getItem('language') || 'en';
-        alert(translations[lang].fileReadError);
-        loadingOverlay.style.display = 'none';
+      const lang = localStorage.getItem('language') || 'en';
+      alert(translations[lang].fileReadError);
+      loadingOverlay.style.display = 'none';
       };
       reader.readAsText(file);
     }
@@ -1331,127 +1329,127 @@
       const uploadArea = document.getElementById('upload-area');
       const jsonFileInput = document.getElementById('json-file');
       uploadArea.addEventListener("click", () => {
-        jsonFileInput.click();
+      jsonFileInput.click();
       });
       uploadArea.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        uploadArea.classList.add('hover');
+      e.preventDefault();
+      uploadArea.classList.add('hover');
       });
       uploadArea.addEventListener("dragleave", (e) => {
-        e.preventDefault();
-        uploadArea.classList.remove('hover');
+      e.preventDefault();
+      uploadArea.classList.remove('hover');
       });
       uploadArea.addEventListener("drop", (e) => {
-        e.preventDefault();
-        uploadArea.classList.remove('hover');
-        const files = e.dataTransfer.files;
-        if (files.length) {
-          handleFile(files[0]);
-        }
+      e.preventDefault();
+      uploadArea.classList.remove('hover');
+      const files = e.dataTransfer.files;
+      if (files.length) {
+        handleFile(files[0]);
+      }
       });
       jsonFileInput.addEventListener("change", (e) => {
-        if (e.target.files.length) {
-          handleFile(e.target.files[0]);
-        }
+      if (e.target.files.length) {
+        handleFile(e.target.files[0]);
+      }
       });
-      // Modal: chiude cliccando sulla X
+      // Modal: close by clicking the X
       document.querySelector("#settings-modal .close-button").addEventListener("click", () => {
-        document.getElementById("settings-modal").style.display = "none";
+      document.getElementById("settings-modal").style.display = "none";
       });
-      // Apertura modal dalle impostazioni
+      // Open modal from settings
       document.getElementById("open-settings").addEventListener("click", () => {
-        document.getElementById("settings-modal").style.display = "flex";
+      document.getElementById("settings-modal").style.display = "flex";
       });
-      // Toggle dark mode nel modal
+      // Toggle dark mode in modal
       document.getElementById("modal-dark-toggle").addEventListener("change", (e) => {
-        if (e.target.checked) {
-          document.body.classList.add('dark-mode');
-          localStorage.setItem('darkMode', 'true');
-        } else {
-          document.body.classList.remove('dark-mode');
-          localStorage.setItem('darkMode', 'false');
-        }
-        updateTranslations();
-      });
-      // Toggle posizione chat nel modal
-      document.getElementById("modal-chat-toggle").addEventListener("change", (e) => {
-        if (e.target.checked) {
-          localStorage.setItem('chatPosition', 'end');
-        } else {
-          localStorage.setItem('chatPosition', 'start');
-        }
-        const lang = localStorage.getItem('language') || 'en';
-        document.getElementById("chat-position-text").textContent = e.target.checked ? translations[lang].chatPositionEnd : translations[lang].chatPositionStart;
-        // Se una chat è già visualizzata, aggiorna lo scroll
-        const chatContent = document.getElementById("chat-content");
-        chatContent.scrollTop = e.target.checked ? chatContent.scrollHeight : 0;
-      });
-      // Gestione del cambio lingua
-      document.getElementById("language-select").addEventListener("change", (e) => {
-        localStorage.setItem('language', e.target.value);
-        updateTranslations();
-      });
-      // Imposta le impostazioni salvate in localStorage
-      if (localStorage.getItem('darkMode') === 'true') {
+      if (e.target.checked) {
         document.body.classList.add('dark-mode');
-        document.getElementById("modal-dark-toggle").checked = true;
+        localStorage.setItem('darkMode', 'true');
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'false');
+      }
+      updateTranslations();
+      });
+      // Toggle chat position in modal
+      document.getElementById("modal-chat-toggle").addEventListener("change", (e) => {
+      if (e.target.checked) {
+        localStorage.setItem('chatPosition', 'end');
+      } else {
+        localStorage.setItem('chatPosition', 'start');
+      }
+      const lang = localStorage.getItem('language') || 'en';
+      document.getElementById("chat-position-text").textContent = e.target.checked ? translations[lang].chatPositionEnd : translations[lang].chatPositionStart;
+      // If a chat is already displayed, update the scroll
+      const chatContent = document.getElementById("chat-content");
+      chatContent.scrollTop = e.target.checked ? chatContent.scrollHeight : 0;
+      });
+      // Handle language change
+      document.getElementById("language-select").addEventListener("change", (e) => {
+      localStorage.setItem('language', e.target.value);
+      updateTranslations();
+      });
+      // Set saved settings from localStorage
+      if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      document.getElementById("modal-dark-toggle").checked = true;
       }
       if (localStorage.getItem('chatPosition') === 'end') {
-        document.getElementById("modal-chat-toggle").checked = true;
-        document.getElementById("chat-position-text").textContent = translations[localStorage.getItem('language') || 'it'].chatPositionEnd;
+      document.getElementById("modal-chat-toggle").checked = true;
+      document.getElementById("chat-position-text").textContent = translations[localStorage.getItem('language') || 'it'].chatPositionEnd;
       } else {
-        document.getElementById("modal-chat-toggle").checked = false;
-        document.getElementById("chat-position-text").textContent = translations[localStorage.getItem('language') || 'it'].chatPositionStart;
+      document.getElementById("modal-chat-toggle").checked = false;
+      document.getElementById("chat-position-text").textContent = translations[localStorage.getItem('language') || 'it'].chatPositionStart;
       }
       if (localStorage.getItem('language')) {
-        document.getElementById("language-select").value = localStorage.getItem('language');
+      document.getElementById("language-select").value = localStorage.getItem('language');
       } else {
-        localStorage.setItem('language', 'en');
+      localStorage.setItem('language', 'en');
       }
       updateTranslations();
     });
 
-    // Evento per il pulsante share: copia in clipboard il titolo della chat + link ChatGPT/Claude
+    // Event for the share button: copy the chat title + ChatGPT/Claude link to clipboard
     document.getElementById("share-button").addEventListener("click", function() {
-        const chatTitle = document.getElementById("chat-title").textContent;
-        const chatLink = document.getElementById("chat-link").href;
-        // Aggiungi i due punti e uno spazio tra titolo e link
-        const shareText = chatTitle + ": " + chatLink;
-        navigator.clipboard.writeText(shareText).then(() => {
-            const lang = localStorage.getItem('language') || 'en';
-            // Crea un piccolo messaggio grigio chiaro che compare e svanisce lentamente
-            const notification = document.createElement("div");
-            notification.id = "copy-notification";
-            notification.textContent = translations[lang].copyNotification;
-            notification.style.position = "fixed";
-            //notification.style.bottom = "20px"; // Mostra il messaggio in basso
-            notification.style.top = "60px"; // Mostra il messaggio in alto
-            notification.style.left = "50%";
-            notification.style.transform = "translateX(-50%)";
-            notification.style.backgroundColor = "#ddd";
-            notification.style.color = "#333";
-            notification.style.padding = "10px 20px";
-            notification.style.borderRadius = "4px";
-            notification.style.opacity = "0";
-            notification.style.transition = "opacity 1s";
-            document.body.appendChild(notification);
-            // Fai comparire il messaggio
-            setTimeout(() => {
-            notification.style.opacity = "1";
-            }, 10);
-            // Dopo 2 secondi, fai svanire e rimuovi l'elemento
-            setTimeout(() => {
-            notification.style.opacity = "0";
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 1000);
-            }, 2000);
-        }).catch(err => {
-            const lang = localStorage.getItem('language') || 'en';
-            console.error(translations[lang].copyError + ": " + err);
-        });
+      const chatTitle = document.getElementById("chat-title").textContent;
+      const chatLink = document.getElementById("chat-link").href;
+      // Add a colon and a space between title and link
+      const shareText = chatTitle + ": " + chatLink;
+      navigator.clipboard.writeText(shareText).then(() => {
+        const lang = localStorage.getItem('language') || 'en';
+        // Create a small light gray message that appears and fades out slowly
+        const notification = document.createElement("div");
+        notification.id = "copy-notification";
+        notification.textContent = translations[lang].copyNotification;
+        notification.style.position = "fixed";
+        //notification.style.bottom = "20px"; // Show the message at the bottom
+        notification.style.top = "60px"; // Show the message at the top
+        notification.style.left = "50%";
+        notification.style.transform = "translateX(-50%)";
+        notification.style.backgroundColor = "#ddd";
+        notification.style.color = "#333";
+        notification.style.padding = "10px 20px";
+        notification.style.borderRadius = "4px";
+        notification.style.opacity = "0";
+        notification.style.transition = "opacity 1s";
+        document.body.appendChild(notification);
+        // Make the message appear
+        setTimeout(() => {
+        notification.style.opacity = "1";
+        }, 10);
+        // After 2 seconds, fade out and remove the element
+        setTimeout(() => {
+        notification.style.opacity = "0";
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 1000);
+        }, 2000);
+      }).catch(err => {
+        const lang = localStorage.getItem('language') || 'en';
+        console.error(translations[lang].copyError + ": " + err);
+      });
     });
-
+    
   </script>
 </body>
 </html>
