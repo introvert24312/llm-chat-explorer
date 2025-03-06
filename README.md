@@ -74,7 +74,8 @@ The application is built with HTML, CSS, and JavaScript and offers the following
 - **Local JSON File Processing**: Data is read and processed using the `FileReader` object without being sent online.
 - **Advanced Chat Management**: Supports ChatGPT and Claude’s export formats, normalizing the chat order and enabling advanced searches within titles and content.
 - **Dynamic and Responsive Interface**: A sidebar for navigating chats and a display area for messages, with search and customization support.
-- **Multilingual and Dark/Light Mode**: The interface supports multiple languages (English, Italian, Spanish, French, German, Polish, Chinese, Korean, and Japanese) and adapts to different visual preferences.
+- **Multilanguage and Dark/Light Mode**: The interface supports multiple languages (English, Italian, Spanish, French, German, Polish, Chinese, Korean, and Japanese) and allows enabling or disabling dark mode.
+- **Chat Position**: This setting controls the order of messages within individual chats. By selecting "At end," the most recent message will appear at the bottom, similar to common messaging apps. Choosing "At start" will display the latest messages at the top.
 - **Direct Chat Viewing**: Each individual chat in the backup can be accessed directly within the user's ChatGPT or Claude account by clicking the associated share link.
 
 ## File Structure
