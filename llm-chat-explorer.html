@@ -18,7 +18,7 @@
       --hover-color: #f0f0f0;
       --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       --radius: 8px;
-      --highlight-bg: rgba(16, 163, 127, 0.2); /* Evidenziazione in light mode */
+      --highlight-bg: rgba(16, 163, 127, 0.2); /* Highlight color in light mode */
     }
     /* Dark mode override */
     body.dark-mode {
@@ -31,7 +31,7 @@
       --border-color: #333;
       --hover-color: #2a2a2a;
       --shadow: none;
-      --highlight-bg: rgba(218, 15, 127, 0.8); /* Evidenziazione più intensa in dark mode. Era rgba(16, 163, 127, 0.4) */
+      --highlight-bg: rgba(218, 15, 127, 0.8); /* More intense highlight in dark mode. Was rgba(16, 163, 127, 0.4) */
     }
 
     body.dark-mode pre {
@@ -53,7 +53,7 @@
       transition: background-color 0.3s, color 0.3s;
     }
     
-    /* Upload wrapper per centrare verticalmente */
+    /* Upload wrapper to vertically center */
     #upload-wrapper {
       display: flex;
       justify-content: center;
@@ -62,7 +62,7 @@
       padding: 20px;
     }
     
-    /* Upload area: più piccola con contorno e centrata */
+    /* Upload area: smaller with border and centered */
     #upload-area {
       cursor: pointer;
       border: 2px dashed #ccc;
@@ -77,7 +77,7 @@
       background-color: #f0f0f0;
       border-color: var(--primary-color);
     }
-    /* Titolo upload con icona in linea */
+    /* Upload title with inline icon */
     .upload-title {
       display: inline-flex;
       align-items: center;
@@ -90,24 +90,24 @@
     .upload-title i {
       font-size: 1.8rem;
     }
-    /* Testo generale dentro #upload-area */
+    /* General text inside #upload-area */
     #upload-area p {
       font-size: 1.2rem;
       color: var(--text-color);
     }
 
-    /* Testo più piccolo per descrizione */
+    /* Smaller text for description */
     #upload-area p.small-text {
       font-size: 0.8rem;
     }
 
-    /* Stile di default per il testo delle istruzioni */
+    /* Default style for instruction text */
     #upload-area p.upload-instruction {
-      font-size: 1rem;  /* Dimensione del font */
-      color: var(--text-color); /* Usa la variabile del tema */
-      margin-top: 10px;  /* Spazio sopra */
-      text-align: center; /* Testo centrato */
-      line-height: 1.5; /* Migliora la leggibilità */
+      font-size: 1rem;  /* Font size */
+      color: var(--text-color); /* Use theme variable */
+      margin-top: 10px;  /* Space above */
+      text-align: center; /* Centered text */
+      line-height: 1.5; /* Improve readability */
     }
     
     /* Progress bar */
@@ -167,16 +167,16 @@
       align-items: center;
       font-size: 0.9rem;
       color: var(--text-light);
-      padding: 5px 20px; /* 20px a sinistra e a destra */
+      padding: 5px 20px; /* 20px left and right */
     }
 
     .chat-info {
       display: flex;
       align-items: center;
-      gap: 5px; /* Spazio tra l'icona e il testo */
+      gap: 5px; /* Space between icon and text */
     }
 
-    /* Icona gear per aprire le impostazioni */
+    /* Gear icon to open settings */
     #open-settings {
       cursor: pointer;
       font-size: 0.9rem;
@@ -216,7 +216,7 @@
     
     #search-bar:focus {
       outline: none;
-      border-color: var(--primary-color);
+      border-color: var (--primary-color);
       box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.2);
     }
     
@@ -304,7 +304,7 @@
     .external-link {
       display: inline-flex;
       align-items: center;
-      gap: 5px; /* Imposta uno spazio di 5px tra l'icona e il testo */
+      gap: 5px; /* Set a 5px space between icon and text */
       color: var(--primary-color);
       text-decoration: none;
       font-size: 14px;
@@ -313,16 +313,16 @@
       border-radius: var(--radius);
       background-color: var(--primary-light);
     }
-    /* In dark mode il testo del link diventa bianco */
+    /* In dark mode, the link text becomes white */
     body.dark-mode .external-link {
       color: #ffffff;
     }
-    /* In dark mode testo digitato nel campo di ricerca sarà della variabili come --text-color(#f0f0f0) invece che semplice bianco */
+    /* In dark mode, the text typed in the search field will be the variable like --text-color(#f0f0f0) instead of plain white */
     body.dark-mode #search-bar {
       color: var(--text-color);
     }
     body.dark-mode .clear-search {
-      color: #333; /* Colore scuro per la X in modalità Dark */
+      color: #333; /* Dark color for the X in dark mode */
     }
 
     .external-link:hover {
@@ -417,7 +417,7 @@
       }
     }
     
-    /* ---------- Modal delle impostazioni ---------- */
+    /* ---------- Settings modal ---------- */
     #settings-modal {
       display: none;
       position: fixed;
@@ -460,7 +460,7 @@
       font-size: 1rem;
       color: var(--text-color);
     }
-    /* Switch generico */
+    /* Generic switch */
     .switch {
       position: relative;
       display: inline-block;
@@ -500,7 +500,7 @@
     input:checked + .slider:before {
       transform: translateX(26px);
     }
-    /* Switch per dark mode con icone (corretto per migliore allineamento) */
+    /* Switch for dark mode with icons (corrected for better alignment) */
     .dark-slider:before {
     content: "\f185"; /* sun */
     font-family: "Font Awesome 6 Free";
@@ -520,7 +520,7 @@
     color: #f1c40f;
     }
     
-    /* Classe per evidenziare il testo cercato; usa il colore definito da --highlight-bg, che cambia dinamicamente in base al tema (light/dark mode). */
+    /* Class to highlight searched text; uses the color defined by --highlight-bg, which changes dynamically based on the theme (light/dark mode). */
     .highlight {
       background-color: var(--highlight-bg);
       font-weight: bold;
@@ -533,7 +533,7 @@
     <div id="loading-bar"></div>
   </div>
 
-  <!-- Upload wrapper per centrare l'upload area -->
+  <!-- Upload wrapper to center the upload area -->
   <div id="upload-wrapper">
     <div id="upload-area">
       <h1 class="upload-title"><i class="fas fa-comments"></i> <span>LLM Chat Explorer</span></h1>
@@ -546,7 +546,7 @@
     </div>
   </div>
 
-  <!-- App principale (nascosta fino al caricamento del JSON) -->
+  <!-- Main app (hidden until JSON is loaded) -->
   <div class="app-container" style="display: none;">
     <div class="sidebar">
       <div class="sidebar-header">
@@ -566,7 +566,7 @@
       </div>
       <div class="search-container">
         <i class="fas fa-search search-icon"></i>
-        <input type="text" id="search-bar" placeholder="Cerca conversazioni...">
+        <input type="text" id="search-bar" placeholder="Search conversations...">
         <span id="clear-search" class="clear-search">&times;</span>
       </div>
       <div class="search-options">
@@ -574,7 +574,7 @@
         <label for="search-content-toggle">Search within message content</label>
       </div>
       <ul id="chat-list" class="chat-list">
-        <!-- I titoli delle chat verranno inseriti qui -->
+        <!-- Chat titles will be inserted here -->
       </ul>
     </div>
     <div class="content">
