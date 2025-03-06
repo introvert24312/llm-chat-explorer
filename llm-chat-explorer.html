@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Chat Export Viewer</title>
-  <meta name="description" content="AI Chat Export Viewer is a web application that allows you to view and analyze conversation exports from ChatGPT and Claude, offering an intuitive interface to manage chat history.">
+  <title>LLM Chat Explorer</title>
+  <meta name="description" content="LLM Chat Explorer is a web application that allows you to view and analyze conversation exports from ChatGPT and Claude, offering an intuitive interface to manage chat history.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -536,7 +536,7 @@
   <!-- Upload wrapper per centrare l'upload area -->
   <div id="upload-wrapper">
     <div id="upload-area">
-      <h1 class="upload-title"><i class="fas fa-comments"></i> <span>AI Chat Export Viewer</span></h1>
+      <h1 class="upload-title"><i class="fas fa-comments"></i> <span>LLM Chat Explorer</span></h1>
       <p class="small-text">
         Upload the export of your chat data from ChatGPT or Claude to view and analyze conversations in an intuitive and user-friendly interface.
       </p>
@@ -550,7 +550,7 @@
   <div class="app-container" style="display: none;">
     <div class="sidebar">
       <div class="sidebar-header">
-        <h1 style="cursor: pointer;" onclick="location.reload();" title="Click here to reload the page"><i class="fas fa-comments"></i> AI Chat Export Viewer</h1>
+        <h1 style="cursor: pointer;" onclick="location.reload();" title="Click here to reload the page"><i class="fas fa-comments"></i> LLM Chat Explorer</h1>
       </div>
       <div id="chat-counter">
         <div class="chat-info">
@@ -639,10 +639,10 @@
     /* Traduzioni per le varie lingue */
     const translations = {
       it: {
-        uploadTitle: "AI Chat Export Viewer",
+        uploadTitle: "LLM Chat Explorer",
         reloadTooltip: "Clicca qui per ricaricare la pagina",
         uploadInstruction: "Trascina qui il file JSON (conversations.json) oppure clicca per selezionarlo",
-        metaDescription: "AI Chat Export Viewer è un'applicazione web che consente di visualizzare e analizzare le esportazioni delle conversazioni da ChatGPT e Claude, offrendo un'interfaccia intuitiva per gestire la cronologia chat.",
+        metaDescription: "LLM Chat Explorer è un'applicazione web che consente di visualizzare e analizzare le esportazioni delle conversazioni da ChatGPT e Claude, offrendo un'interfaccia intuitiva per gestire la cronologia chat.",
         uploadDescription: "Carica l'esportazione dei tuoi dati di chat da ChatGPT o Claude per visualizzare e analizzare le conversazioni in un'interfaccia intuitiva e user-friendly.",
         sourceLabel: "Fonte:",
         openSettingsTooltip: "Apri impostazioni",
@@ -669,10 +669,10 @@
         visibleSeparator: "di"
       },
       en: {
-        uploadTitle: "AI Chat Export Viewer",
+        uploadTitle: "LLM Chat Explorer",
         reloadTooltip: "Click here to reload the page",
         uploadInstruction: "Drag and drop the JSON file (conversations.json) or click to select it",
-        metaDescription: "AI Chat Export Viewer is a web application that allows you to view and analyze conversation exports from ChatGPT and Claude, offering an intuitive interface to manage chat history.",
+        metaDescription: "LLM Chat Explorer is a web application that allows you to view and analyze conversation exports from ChatGPT and Claude, offering an intuitive interface to manage chat history.",
         uploadDescription: "Upload the export of your chat data from ChatGPT or Claude to view and analyze conversations in an intuitive and user-friendly interface.",
         sourceLabel: "Source:",
         openSettingsTooltip: "Open settings",
@@ -699,10 +699,10 @@
         visibleSeparator: "of"
       },
       es: {
-        uploadTitle: "AI Chat Export Viewer",
+        uploadTitle: "LLM Chat Explorer",
         reloadTooltip: "Haz clic aquí para recargar la página",
         uploadInstruction: "Arrastra el archivo JSON (conversations.json) o haz clic para seleccionarlo",
-        metaDescription: "AI Chat Export Viewer es una aplicación web que te permite visualizar y analizar las exportaciones de conversaciones de ChatGPT y Claude, ofreciendo una interfaz intuitiva para gestionar el historial de chats.",
+        metaDescription: "LLM Chat Explorer es una aplicación web que te permite visualizar y analizar las exportaciones de conversaciones de ChatGPT y Claude, ofreciendo una interfaz intuitiva para gestionar el historial de chats.",
         uploadDescription: "Carga la exportación de tus datos de chat de ChatGPT o Claude para visualizar y analizar las conversaciones en una interfaz intuitiva y fácil de usar.",
         sourceLabel: "Fuente:",
         openSettingsTooltip: "Abrir ajustes",
@@ -729,10 +729,10 @@
         visibleSeparator: "de"
       },
       fr: {
-        uploadTitle: "AI Chat Export Viewer",
+        uploadTitle: "LLM Chat Explorer",
         reloadTooltip: "Cliquez ici pour recharger la page",
         uploadInstruction: "Faites glisser le fichier JSON (conversations.json) ou cliquez pour le sélectionner",
-        metaDescription: "AI Chat Export Viewer est une application web qui vous permet de visualiser et d'analyser les exportations de conversations de ChatGPT et Claude, offrant une interface intuitive pour gérer l'historique des chats.",
+        metaDescription: "LLM Chat Explorer est une application web qui vous permet de visualiser et d'analyser les exportations de conversations de ChatGPT et Claude, offrant une interface intuitive pour gérer l'historique des chats.",
         uploadDescription: "Téléchargez l'exportation de vos données de chat de ChatGPT ou Claude pour visualiser et analyser les conversations dans une interface intuitive et conviviale.",
         sourceLabel: "Source:",
         openSettingsTooltip: "Ouvrir les paramètres",
@@ -759,10 +759,10 @@
         visibleSeparator: "de"
       },
       de: {
-        uploadTitle: "AI Chat Export Viewer",
+        uploadTitle: "LLM Chat Explorer",
         reloadTooltip: "Klicken Sie hier, um die Seite neu zu laden",
         uploadInstruction: "Ziehen Sie die JSON-Datei (conversations.json) per Drag & Drop oder klicken Sie, um sie auszuwählen",
-        metaDescription: "AI Chat Export Viewer ist eine Webanwendung, die es Ihnen ermöglicht, Gesprächsexporte von ChatGPT und Claude anzusehen und zu analysieren, und bietet eine intuitive Benutzeroberfläche zur Verwaltung des Chatverlaufs.",
+        metaDescription: "LLM Chat Explorer ist eine Webanwendung, die es Ihnen ermöglicht, Gesprächsexporte von ChatGPT und Claude anzusehen und zu analysieren, und bietet eine intuitive Benutzeroberfläche zur Verwaltung des Chatverlaufs.",
         uploadDescription: "Laden Sie den Export Ihrer Chat-Daten von ChatGPT oder Claude hoch, um die Gespräche in einer intuitiven und benutzerfreundlichen Oberfläche anzuzeigen und zu analysieren.",
         sourceLabel: "Quelle:",
         openSettingsTooltip: "Einstellungen öffnen",
@@ -789,10 +789,10 @@
         visibleSeparator: "von"
       },
       pl: {
-        uploadTitle: "AI Chat Export Viewer",
+        uploadTitle: "LLM Chat Explorer",
         reloadTooltip: "Kliknij tutaj, aby przeładować stronę",
         uploadInstruction: "Przeciągnij plik JSON (conversations.json) tutaj lub kliknij, aby go wybrać",
-        metaDescription: "AI Chat Export Viewer to aplikacja internetowa, która umożliwia przeglądanie i analizowanie eksportów konwersacji z ChatGPT i Claude, oferując intuicyjny interfejs do zarządzania historią czatu.",
+        metaDescription: "LLM Chat Explorer to aplikacja internetowa, która umożliwia przeglądanie i analizowanie eksportów konwersacji z ChatGPT i Claude, oferując intuicyjny interfejs do zarządzania historią czatu.",
         uploadDescription: "Prześlij eksport swoich danych czatu z ChatGPT lub Claude, aby przeglądać i analizować konwersacje w intuicyjnym i przyjaznym dla użytkownika interfejsie.",
         sourceLabel: "Źródło:",
         openSettingsTooltip: "Otwórz ustawienia",
@@ -819,10 +819,10 @@
         visibleSeparator: "z"
       },
       zh: {
-        uploadTitle: "AI Chat Export Viewer",
+        uploadTitle: "LLM Chat Explorer",
         reloadTooltip: "点击此处重新加载页面",
         uploadInstruction: "将 JSON 文件 (conversations.json) 拖放到此处或单击以选择",
-        metaDescription: "AI Chat Export Viewer 是一个网页应用程序，可让您查看和分析来自 ChatGPT 和 Claude 的对话导出，并提供直观的界面来管理聊天历史。",
+        metaDescription: "LLM Chat Explorer 是一个网页应用程序，可让您查看和分析来自 ChatGPT 和 Claude 的对话导出，并提供直观的界面来管理聊天历史。",
         uploadDescription: "上传您的 ChatGPT 或 Claude 聊天数据导出文件，以直观、用户友好的界面查看和分析对话。",
         sourceLabel: "来源:",
         openSettingsTooltip: "打开设置",
@@ -849,10 +849,10 @@
         visibleSeparator: "的"
       },
       ko: {
-        uploadTitle: "AI Chat Export Viewer",
+        uploadTitle: "LLM Chat Explorer",
         reloadTooltip: "페이지를 새로고침하려면 여기를 클릭하세요",
         uploadInstruction: "JSON 파일 (conversations.json)을 여기에 드래그 앤 드롭하거나 클릭하여 선택하세요",
-        metaDescription: "AI Chat Export Viewer는 ChatGPT와 Claude의 대화 내보내기를 확인하고 분석할 수 있는 웹 애플리케이션으로, 채팅 기록을 관리하기 위한 직관적인 인터페이스를 제공합니다.",
+        metaDescription: "LLM Chat Explorer는 ChatGPT와 Claude의 대화 내보내기를 확인하고 분석할 수 있는 웹 애플리케이션으로, 채팅 기록을 관리하기 위한 직관적인 인터페이스를 제공합니다.",
         uploadDescription: "ChatGPT 또는 Claude의 채팅 데이터 내보내기를 업로드하여 직관적이고 사용자 친화적인 인터페이스에서 대화를 확인하고 분석하세요.",
         sourceLabel: "출처:",
         openSettingsTooltip: "설정 열기",
@@ -879,10 +879,10 @@
         visibleSeparator: "의"
       },
       ja: {
-        uploadTitle: "AI Chat Export Viewer",
+        uploadTitle: "LLM Chat Explorer",
         reloadTooltip: "ページを再読み込みするにはここをクリックしてください",
         uploadInstruction: "JSONファイル (conversations.json) をここにドラッグ＆ドロップするか、クリックして選択してください",
-        metaDescription: "AI Chat Export Viewer は、ChatGPT と Claude からの会話のエクスポートを表示および解析できるウェブアプリケーションで、チャット履歴を管理するための直感的なインターフェースを提供します。",
+        metaDescription: "LLM Chat Explorer は、ChatGPT と Claude からの会話のエクスポートを表示および解析できるウェブアプリケーションで、チャット履歴を管理するための直感的なインターフェースを提供します。",
         uploadDescription: "ChatGPT または Claude のチャットデータのエクスポートをアップロードして、直感的で使いやすいインターフェースで会話を表示および解析してください。",
         sourceLabel: "出典:",
         openSettingsTooltip: "設定を開く",
