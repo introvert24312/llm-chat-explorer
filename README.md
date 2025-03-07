@@ -4,9 +4,9 @@
 
 [ [English](README.md) | [Italiano](README.it.md) ]
 
-A privacy-focused web application designed to process and analyze locally exported chat data from ChatGPT by OpenAI and Claude by Anthropic. Although both ChatGPT and Claude offer built-in search functionalities, these can often be slow and cumbersome for users managing large conversation archives. This application provides users with quick, organized access to their AI interactions, eliminating the need to directly navigate raw JSON files, especially relevant for Claude exports.
+A privacy-focused web application designed to locally process and analyze exported chat data from ChatGPT by OpenAI and Claude by Anthropic. Although both models have built-in search functions, these can be slow and impractical for users managing a large number of saved conversations. With this web application, users can quickly and efficiently access their archive of AI interactions, avoiding the hassle of directly navigating raw JSON files, as is the case with Claude exports.
 
-The application ensures all data processing happens exclusively on the user's device, directly in the browser, maintaining privacy by preventing data transmission to external servers. Users can easily download the HTML page and inspect the source code themselves to verify functionality and security. Developed as a completely standalone project, it utilizes only HTML, CSS, and JavaScript without external dependencies (except fonts), enabling immediate local deployment without additional configurations.
+Additionally, the application ensures all data processing happens exclusively on the user's device, directly in the browser, maintaining privacy by preventing data transmission to external servers. Users can easily download the HTML page and inspect the source code themselves to verify functionality and security. Developed as a completely standalone project, it utilizes only HTML, CSS, and JavaScript without external dependencies (except fonts), enabling immediate local deployment without additional configurations.
 
 By leveraging their own chat backups, users can efficiently manage, consult, and revisit previous conversations. Working locally also bypasses common restrictions, such as losing access to older chats or experiencing difficulties exporting complete archives from official platforms.
 
