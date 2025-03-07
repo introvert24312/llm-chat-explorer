@@ -4,7 +4,7 @@
 
 [ [English](README.md) | [Italiano](README.it.md) ]
 
-A privacy-focused web application designed to process and analyze locally exported chat data from ChatGPT and Claude. Although both ChatGPT and Claude offer built-in search functionalities, these can often be slow and cumbersome for users managing large conversation archives. This application provides users with quick, organized access to their AI interactions, eliminating the need to directly navigate raw JSON files, especially relevant for Claude exports.
+A privacy-focused web application designed to process and analyze locally exported chat data from ChatGPT by OpenAI and Claude by Anthropic. Although both ChatGPT and Claude offer built-in search functionalities, these can often be slow and cumbersome for users managing large conversation archives. This application provides users with quick, organized access to their AI interactions, eliminating the need to directly navigate raw JSON files, especially relevant for Claude exports.
 
 The application ensures all data processing happens exclusively on the user's device, directly in the browser, maintaining privacy by preventing data transmission to external servers. Users can easily download the HTML page and inspect the source code themselves to verify functionality and security. Developed as a completely standalone project, it utilizes only HTML, CSS, and JavaScript without external dependencies (except fonts), enabling immediate local deployment without additional configurations.
 
