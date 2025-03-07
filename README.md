@@ -1,6 +1,6 @@
 # LLM Chat Explorer
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/levysoft/llm-chat-explorer?label=latest) [![Github All Releases](https://img.shields.io/github/downloads/levysoft/llm-chat-explorer/total.svg)](https://github.com/levysoft/llm-chat-explorer/releases) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-yellow.svg)](https://opensource.org/licenses/GPLv3) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/levysoft/llm-chat-explorer/graphs/commit-activity) [![GitHub contributors](https://img.shields.io/github/contributors/levysoft/llm-chat-explorer.svg)](https://github.com/levysoft/llm-chat-explorer/graphs/contributors) [![made-with-html](https://img.shields.io/badge/Made%20with-HTML-orange.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML) [![made-with-css](https://img.shields.io/badge/Made%20with-CSS-blue.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS) [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/levysoft/llm-chat-explorer?label=latest) [![Github All Releases](https://img.shields.io/github/downloads/levysoft/llm-chat-explorer/total.svg)](https://github.com/levysoft/llm-chat-explorer/releases) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/levysoft/llm-chat-explorer/graphs/commit-activity) [![GitHub contributors](https://img.shields.io/github/contributors/levysoft/llm-chat-explorer.svg)](https://github.com/levysoft/llm-chat-explorer/graphs/contributors) [![made-with-html](https://img.shields.io/badge/Made%20with-HTML-orange.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML) [![made-with-css](https://img.shields.io/badge/Made%20with-CSS-blue.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS) [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 [ [English](README.md) | [Italiano](README.it.md) ]
 
@@ -126,5 +126,5 @@ Antonio Troise
 
 ## License
 
-This project is released under the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html) license. See the LICENSE file for more details.
+This project is released under the MIT License. See the LICENSE file for more details.
 
