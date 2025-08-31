@@ -78,6 +78,7 @@ The application is built with HTML, CSS, and JavaScript and offers the following
 - **Multilanguage and Dark/Light Mode**: The interface supports multiple languages (English, Italian, Spanish, French, German, Polish, Chinese, Korean, and Japanese) and allows enabling or disabling dark mode.
 - **Chat Position**: This setting controls the order of messages within individual chats. By selecting "At end," the most recent message will appear at the bottom, similar to common messaging apps. Choosing "At start" will display the latest messages at the top.
 - **Direct Chat Viewing**: Each individual chat in the backup can be accessed directly within the user's ChatGPT or Claude account by clicking the associated share link.
+- **Advanced Code Block Handling**: Code blocks now feature an improved style with enhanced contrast for better readability. A "Copy" button appears on hover to easily copy code, and it is intelligently hidden for special Claude artifact messages to avoid copying irrelevant text.
 
 ## File Structure
 ```
