@@ -34,9 +34,9 @@
       --highlight-bg: rgba(218, 15, 127, 0.8); /* More intense highlight in dark mode. Was rgba(16, 163, 127, 0.4) */
     }
 
-    body.dark-mode pre {
-        background-color: #2b2b2b !important;
-        color: #f8f8f2 !important;
+    body.dark-mode .code-block {
+        background-color: #2b2b2b;
+        color: #f8f8f2;
     }
     
     * {
@@ -525,6 +525,49 @@
       background-color: var(--highlight-bg);
       font-weight: bold;
     }
+
+    /* Styling for code blocks */
+    .code-block {
+        background-color: #dcdcdc; /* Gainsboro */
+        padding: 1em;
+        border-radius: 5px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    /* Styles for code block container and copy button */
+    .code-block-container {
+        position: relative;
+        margin: 1em 0;
+    }
+
+    .copy-code-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background-color: #7e7c7c;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        display: none; /* Hidden by default */
+        opacity: 0.7;
+    }
+
+    .code-block-container:hover .copy-code-btn {
+        display: block; /* Show on hover */
+    }
+    
+    .copy-code-btn:hover {
+        opacity: 1;
+    }
+
+    body.dark-mode .copy-code-btn {
+        background-color: #444;
+        color: #f0f0f0;
+    }
 </style>
 </head>
 <body>
@@ -636,6 +679,30 @@
     </div>
 
   <script>
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function copyCode(button) {
+        const pre = button.nextElementSibling;
+        const code = pre.innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            button.textContent = 'Copied!';
+            const originalText = 'Copy';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy code: ', err);
+            button.textContent = 'Error';
+        });
+    }
+
     /* Translations for various languages */
     const translations = {
       it: {
@@ -1227,8 +1294,18 @@
       if (!text) return '';
       // Convert links and code blocks
       text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary-color);">$1</a>');
-      text = text.replace(/```([^`]+)```/g, '<pre style="background-color: #f6f8fa; padding: 1em; border-radius: 5px; overflow-x: auto;">$1</pre>');
-      text = text.replace(/\n/g, '<br>');
+      text = text.replace(/```(\w*)\n?([\s\S]+?)```/g, (match, lang, code) => {
+        const trimmedCode = code.trim();
+        const codeElement = `<pre class="code-block">${escapeHtml(trimmedCode)}</pre>`;
+        
+        let copyButton = '';
+        if (!trimmedCode.startsWith("Viewing artifacts")) {
+            copyButton = `<button class="copy-code-btn" onclick="copyCode(this)">Copy</button>`;
+        }
+        
+        return `<div class="code-block-container">${copyButton}${codeElement}</div>`;
+      });
+      text = text.replace(/(?<!<\/pre>)\n/g, '<br>');
       
       // Highlight searched words in the content if the checkbox is active
       const searchTerm = document.getElementById("search-bar").value.toLowerCase().trim();
