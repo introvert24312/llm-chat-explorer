@@ -78,6 +78,7 @@ L'applicazione è sviluppata con HTML, CSS e JavaScript e offre le seguenti funz
 - **Modalità multilingua e dark/light**: L'interfaccia supporta diverse lingue (Inglese, Italiano, Spagnolo, Francese, Tedesco, Polacco, Cinese, Coreano e Giapponese) e consente di attivare o disattivare la modalità dark dalle impostazioni.    
 - **Posizione Chat**: permette di impostare l’ordine dei messaggi all’interno della singola chat.Selezionando “Alla fine” il messaggio più recente apparirà in basso, come nelle comuni app di messaggistica; scegliendo invece “All’inizio”, i messaggi più recenti saranno visualizzati in alto.
 - **Visualizzazione diretta delle chat**: Ogni singola chat presente nel backup può essere visualizzata direttamente nel proprio account ChatGPT o Claude cliccando sul link di condivisione associato.
+- **Gestione Avanzata dei Blocchi di Codice**: I blocchi di codice ora hanno uno stile migliorato con un maggiore contrasto per una migliore leggibilità. È stato aggiunto un pulsante "Copia" che appare al passaggio del mouse per copiare facilmente il codice. Il pulsante viene intelligentemente nascosto per i messaggi speciali di Claude (artefatti) per evitare di copiare testo non pertinente.
 
 ## Struttura dei file
 ```
